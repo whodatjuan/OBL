@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>One Bite Fantasy League — Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #131a21;
+    --navy-2: #1c2530;
+    --navy-3: #232e3b;
+    --chalk: #f4f1e8;
+    --chalk-dim: #c9c4b6;
+    --mustard: #e4a73b;
+    --mustard-dim: #a9822f;
+    --win: #4c8b5a;
+    --loss: #b4483a;
+    --rule: #3a4552;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--navy);
+    color: var(--chalk);
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.5;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  h1, h2, h3, .score, .nav-brand { font-family: 'Teko', sans-serif; font-weight: 600; letter-spacing: 0.01em; }
+  a { color: var(--mustard); }
+
+  /* ===== Top bar ===== */
+  header {
+    position: sticky; top: 0; z-index: 30;
+    background: var(--navy);
+    border-bottom: 3px solid var(--mustard);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .topbar {
+    display: flex; align-items: baseline; justify-content: space-between;
+    max-width: 1180px; margin: 0 auto; padding: 14px 20px 10px;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .nav-brand { font-size: 28px; color: var(--chalk); }
+  .nav-brand span { color: var(--mustard); }
+  button.week-btn {
+    background: var(--navy-3); color: var(--chalk); border: 1px solid var(--rule);
+    padding: 6px 10px; font-family: 'Work Sans', sans-serif; font-size: 14px; border-radius: 3px;
+    cursor: pointer;
+  }
+  button.week-btn:hover { border-color: var(--mustard); }
+
+  /* ===== Tabs ===== */
+  .tabbar {
+    display: flex; gap: 2px; max-width: 1180px; margin: 0 auto;
+    padding: 0 20px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  }
+  .tab-btn {
+    background: none; border: none; color: var(--chalk-dim);
+    font-family: 'Teko', sans-serif; font-size: 20px; letter-spacing: 0.02em;
+    padding: 8px 16px 12px; cursor: pointer; white-space: nowrap;
+    border-bottom: 3px solid transparent; margin-bottom: -3px;
+    transition: color 120ms ease, border-color 120ms ease;
+  }
+  .tab-btn:hover { color: var(--chalk); }
+  .tab-btn.active { color: var(--mustard); border-bottom-color: var(--mustard); }
+  .tab-btn:focus-visible, button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--mustard); outline-offset: 2px;
+  }
+
+  main { max-width: 1180px; margin: 0 auto; padding: 0 20px 80px; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .status-line { font-size: 13px; color: var(--chalk-dim); padding: 14px 0 0; min-height: 18px; }
+  .status-line.err { color: var(--loss); }
+
+  .panel-head {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+    border-bottom: 2px solid var(--rule); padding: 20px 0 8px; margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .panel-head h2 { font-size: 32px; margin: 0; }
+  .panel-sub { font-size: 13px; color: var(--chalk-dim); }
+  .weekpicker { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  select {
+    background: var(--navy-3); color: var(--chalk); border: 1px solid var(--rule);
+    padding: 6px 10px; font-family: 'Work Sans', sans-serif; font-size: 14px; border-radius: 3px;
+  }
+
+  /* ===== Scoreboard strip ===== */
+  .scoreboard {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 18px;
+  }
+  .matchup-card { background: var(--navy-2); padding: 14px 16px; cursor: pointer; transition: background 120ms ease; }
+  .matchup-card:hover, .matchup-card:focus-visible { background: var(--navy-3); }
+  .mc-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
+  .mc-team { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 68%; }
+  .mc-team.winning { color: var(--mustard); font-weight: 600; }
+  .mc-score { font-family: 'Teko', sans-serif; font-size: 24px; }
+  .mc-score.winning { color: var(--mustard); }
+  .mc-sep { border-top: 1px solid var(--rule); margin: 4px 0; }
+  .mc-status { font-size: 11px; color: var(--chalk-dim); margin-top: 6px; }
+
+  /* ===== Power rankings ledger ===== */
+  .rank-row {
+    display: grid; grid-template-columns: 46px 1fr auto 64px; gap: 14px; align-items: center;
+    padding: 12px 4px; border-bottom: 1px solid var(--rule);
+  }
+  .rank-row:first-child { border-top: 1px solid var(--rule); }
+  .rank-num { font-family: 'Teko', sans-serif; font-size: 30px; color: var(--mustard-dim); text-align: right; }
+  .rank-team { min-width: 0; }
+  .rank-team .name { font-weight: 600; font-size: 15px; }
+  .rank-team .sub { font-size: 12px; color: var(--chalk-dim); }
+  .rank-stats { text-align: right; font-size: 13px; color: var(--chalk-dim); white-space: nowrap; }
+  .rank-stats b { color: var(--chalk); font-weight: 600; }
+  .grade-badge { font-family: 'Teko', sans-serif; font-size: 22px; text-align: center; border: 1.5px solid currentColor; border-radius: 3px; padding: 2px 0; }
+  .grade-Aplus, .grade-A { color: var(--win); }
+  .grade-Aminus, .grade-Bplus { color: #86a95f; }
+  .grade-B, .grade-Bminus { color: var(--mustard); }
+  .grade-C { color: #c98a3f; }
+  .grade-D, .grade-F, .grade-Fminus { color: var(--loss); }
+
+  /* ===== Matchup detail ===== */
+  .matchup-detail { background: var(--navy-2); border: 1px solid var(--rule); margin-bottom: 18px; display: none; }
+  .matchup-detail.open { display: block; }
+  .md-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 2px solid var(--mustard); cursor: pointer; }
+  .md-head h3 { margin: 0; font-size: 22px; font-weight: 400; }
+  .md-head .toggle { font-size: 20px; color: var(--mustard); }
+  .box-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .box-table th { text-align: left; color: var(--chalk-dim); font-weight: 500; font-size: 11px; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+  .box-table td { padding: 7px 10px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+  .box-table .slot { color: var(--mustard-dim); font-size: 11px; width: 44px; }
+  .box-table .pts { font-family: 'Teko', sans-serif; font-size: 18px; text-align: center; width: 50px; }
+  .box-table tr:last-child td { border-bottom: none; }
+  .box-table .plyr-name { font-weight: 600; }
+  .box-table .plyr-team { color: var(--chalk-dim); font-size: 11px; }
+  .box-scroll { overflow-x: auto; }
+
+  /* ===== Waiver wire + trades ===== */
+  .subhead { font-size: 20px; font-weight: 500; color: var(--mustard); margin: 20px 0 8px; }
+  .wire-row { display: grid; grid-template-columns: 130px 1fr auto; gap: 12px; align-items: center; padding: 10px 4px; border-bottom: 1px solid var(--rule); font-size: 13px; }
+  .wire-row .team { font-weight: 600; }
+  .wire-row .moves .add { color: var(--win); }
+  .wire-row .moves .drop { color: var(--loss); }
+  .wire-row .moves .arrow { color: var(--chalk-dim); margin: 0 4px; }
+  .wire-row .bid { font-family: 'Teko', sans-serif; font-size: 20px; text-align: right; color: var(--mustard); white-space: nowrap; }
+  .wire-row .date { font-size: 11px; color: var(--chalk-dim); }
+  .trade-card { border: 1px solid var(--rule); background: var(--navy-2); padding: 12px 16px; margin-bottom: 10px; }
+  .trade-card .date { font-size: 11px; color: var(--chalk-dim); margin-bottom: 6px; }
+  .trade-side { font-size: 13px; margin: 3px 0; }
+  .trade-side .team { font-weight: 600; color: var(--mustard); }
+  .empty-note { color: var(--chalk-dim); padding: 14px 4px; font-size: 13px; }
+
+  /* ===== Archive ===== */
+  .archive-list { list-style: none; margin: 0; padding: 0; }
+  .archive-item { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 12px 4px; border-bottom: 1px solid var(--rule); }
+  .archive-item .title { font-weight: 600; font-size: 14px; }
+  .archive-item .date { font-size: 12px; color: var(--chalk-dim); }
+  .archive-item a.dl { font-size: 12px; white-space: nowrap; border: 1px solid var(--mustard-dim); padding: 5px 10px; border-radius: 3px; text-decoration: none; }
+  .archive-item a.dl:hover { background: var(--mustard); color: var(--navy); border-color: var(--mustard); }
+  .archive-note { font-size: 12.5px; color: var(--chalk-dim); margin-top: 12px; }
+
+  /* ===== Mailbag ===== */
+  .mailbag-note {
+    background: var(--navy-2); border: 1px solid var(--rule); border-left: 3px solid var(--mustard);
+    padding: 12px 16px; font-size: 13px; color: var(--chalk-dim); margin-bottom: 20px; line-height: 1.55;
+  }
+  .mailbag-note strong { color: var(--chalk); }
+  .mailbag-form { background: var(--navy-2); border: 1px solid var(--rule); padding: 18px; margin-bottom: 26px; }
+  .mailbag-form .row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .mailbag-form .field { flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 5px; }
+  .mailbag-form label { font-size: 12px; color: var(--chalk-dim); }
+  .mailbag-form input[type=text], .mailbag-form select, .mailbag-form textarea {
+    background: var(--navy-3); color: var(--chalk); border: 1px solid var(--rule); border-radius: 3px;
+    padding: 9px 10px; font-family: 'Work Sans', sans-serif; font-size: 14px; width: 100%;
+  }
+  .mailbag-form textarea { resize: vertical; min-height: 80px; }
+  .mailbag-form .submit-row { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+  .mailbag-form button[type=submit] {
+    background: var(--mustard); color: var(--navy); border: none; font-family: 'Teko', sans-serif;
+    font-size: 20px; padding: 8px 22px; border-radius: 3px; cursor: pointer;
+  }
+  .mailbag-form button[type=submit]:hover { background: #f0b755; }
+  .mailbag-status { font-size: 12.5px; color: var(--chalk-dim); }
+  .mailbag-status.ok { color: var(--win); }
+  .mailbag-status.err { color: var(--loss); }
+  .mail-item { border: 1px solid var(--rule); background: var(--navy-2); padding: 14px 16px; margin-bottom: 10px; }
+  .mail-item .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .mail-item .who { font-weight: 600; font-size: 14px; }
+  .mail-item .tag {
+    font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--navy);
+    background: var(--mustard-dim); padding: 2px 8px; border-radius: 10px;
+  }
+  .mail-item .tag.rec { background: var(--win); }
+  .mail-item .tag.gripe { background: var(--loss); }
+  .mail-item .when { font-size: 11px; color: var(--chalk-dim); }
+  .mail-item .body { margin-top: 8px; font-size: 14px; }
+  .mail-item .rm { font-size: 11px; color: var(--chalk-dim); background: none; border: none; cursor: pointer; padding: 0; margin-top: 8px; }
+  .mail-item .rm:hover { color: var(--loss); }
+
+  footer { text-align: center; padding: 30px 20px 50px; color: var(--chalk-dim); font-size: 12px; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="nav-brand">One Bite<span>·</span>Command Center</div>
+    <button class="week-btn" id="refreshBtn" type="button">Refresh</button>
+  </div>
+  <nav class="tabbar" id="tabbar">
+    <button class="tab-btn active" data-tab="matchups" type="button">Matchups</button>
+    <button class="tab-btn" data-tab="rankings" type="button">Power Rankings</button>
+    <button class="tab-btn" data-tab="waivers" type="button">Waiver Wire</button>
+    <button class="tab-btn" data-tab="trades" type="button">Trade Block</button>
+    <button class="tab-btn" data-tab="mailbag" type="button">Mailbag</button>
+    <button class="tab-btn" data-tab="archive" type="button">Archive</button>
+  </nav>
+</header>
+
+<main>
+  <div class="status-line" id="statusLine">Loading league data from Sleeper…</div>
+
+  <!-- ===== Matchups ===== -->
+  <section class="panel active" id="panel-matchups">
+    <div class="panel-head">
+      <h2>Matchups</h2>
+      <div class="weekpicker">
+        <label for="weekSelect">Week</label>
+        <select id="weekSelect"></select>
+      </div>
+    </div>
+    <div class="scoreboard" id="scoreboard"></div>
+    <div id="matchupDetails"></div>
+  </section>
+
+  <!-- ===== Power Rankings ===== -->
+  <section class="panel" id="panel-rankings">
+    <div class="panel-head">
+      <h2>Power Rankings</h2>
+      <div class="panel-sub">Raw score = ((avg × 6) + ((high + low) × 2) + (win% × 400)) ÷ 10 &middot; grade is a fixed scale on average points</div>
+    </div>
+    <div id="rankingsList"></div>
+  </section>
+
+  <!-- ===== Waiver Wire ===== -->
+  <section class="panel" id="panel-waivers">
+    <div class="panel-head">
+      <h2>Waiver Wire</h2>
+      <div class="panel-sub">Recent claims and free-agent pickups, most recent first</div>
+    </div>
+    <div id="waiverList"></div>
+  </section>
+
+  <!-- ===== Trade Block ===== -->
+  <section class="panel" id="panel-trades">
+    <div class="panel-head">
+      <h2>Trade Block</h2>
+      <div class="panel-sub">Completed trades pull live from Sleeper &middot; "on the block" listings are set by hand</div>
+    </div>
+    <h3 class="subhead">On the Block</h3>
+    <ul class="archive-list" id="blockList"></ul>
+    <p class="archive-note">
+      Sleeper doesn't expose "trade block" flags through its public API, so this list is edited by hand — update the
+      <code>ON_THE_BLOCK</code> array near the top of the script whenever someone flags a player as available.
+    </p>
+    <h3 class="subhead">Completed Trades</h3>
+    <div id="tradesList"></div>
+  </section>
+
+  <!-- ===== Mailbag ===== -->
+  <section class="panel" id="panel-mailbag">
+    <div class="panel-head">
+      <h2>Mailbag</h2>
+      <div class="panel-sub">Recommendations, gripes, grievances — send it straight to the commissioner</div>
+    </div>
+    <div class="mailbag-note" id="mailbagNote">
+      <strong>How this works:</strong> whatever you write here gets emailed directly — it isn't posted publicly
+      on this page. Leave your league name and an email or phone number so the commissioner can follow up if needed.
+    </div>
+
+    <form class="mailbag-form" id="mailbagForm">
+      <div class="row">
+        <div class="field">
+          <label for="mbName">Your league name / username</label>
+          <input type="text" id="mbName" name="name" maxlength="40" required>
+        </div>
+        <div class="field">
+          <label for="mbContact">Email or phone number</label>
+          <input type="text" id="mbContact" name="contact" maxlength="80" required placeholder="you@email.com or 555-123-4567">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="mbCategory">Category</label>
+          <select id="mbCategory" name="category">
+            <option value="Recommendation">Recommendation</option>
+            <option value="Gripe">Gripe</option>
+            <option value="Grievance">Grievance</option>
+            <option value="Shoutout">Shoutout</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:12px;">
+        <label for="mbMessage">Message</label>
+        <textarea id="mbMessage" name="message" maxlength="600" required placeholder="Waiver order is rigged. Also, tacos Tuesday at my place before the Week 5 slate."></textarea>
+      </div>
+      <!-- honeypot: real people never fill this in, FormSubmit uses it to drop spam bots -->
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <div class="submit-row">
+        <span class="mailbag-status" id="mailbagStatus"></span>
+        <button type="submit">Send it</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ===== Archive ===== -->
+  <section class="panel" id="panel-archive">
+    <div class="panel-head">
+      <h2>Recap Archive</h2>
+      <div class="panel-sub">Past reports</div>
+    </div>
+    <ul class="archive-list" id="archiveList"></ul>
+    <p class="archive-note">
+      To wire this up: drop each PDF into a <code>/recaps</code> folder next to this file, then add its filename
+      to the <code>ARCHIVE</code> list near the top of the script below. Entries with no file yet show as text only.
+    </p>
+  </section>
+</main>
+
+<footer>One Bite Fantasy League &middot; Full PPR &middot; Data via Sleeper API</footer>
+
+<script>
+/* ============================================================
+   CONFIG — edit these spots as the season/archive grow
+   ============================================================ */
+const LEAGUE_ID = "1386160203438751744";
+
+const ARCHIVE = [
+  { title: "Week 3 Sunday Recap + Monday Preview", date: "Sept 27, 2026", file: null },
+  { title: "Week 3 Waiver Wire Recap", date: "Sept 24, 2026", file: null },
+  { title: "Week 2 Full Recap", date: "Sept 22, 2026", file: null },
+  { title: "Week 2 Power Rankings", date: "Sept 21, 2026", file: null },
+  { title: "Week 1 Final Recap", date: "Sept 15, 2026", file: null },
+  { title: "Draft Grades (v5)", date: "Sept 6, 2026", file: null },
+];
+
+// Sleeper's public API doesn't expose "trade block" flags — maintain this list by hand.
+const ON_THE_BLOCK = [
+  // { player: "Player Name", team: "TEAM", owner: "SleeperUsername", note: "Optional context" },
+];
+
+// Where Mailbag submissions get emailed. Edit this, then read the setup note above the submit handler below.
+const MAILBAG_EMAIL = "YOUR_EMAIL@example.com";
+
+/* ============================================================
+   Tabs
+   ============================================================ */
+const TAB_NAMES = ["matchups", "rankings", "waivers", "trades", "mailbag", "archive"];
+function activateTab(name, pushHash) {
+  if (!TAB_NAMES.includes(name)) name = "matchups";
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
+  document.querySelectorAll(".panel").forEach(p => p.classList.toggle("active", p.id === "panel-" + name));
+  if (pushHash !== false) history.replaceState(null, "", "#" + name);
+}
+document.getElementById("tabbar").addEventListener("click", e => {
+  const btn = e.target.closest(".tab-btn");
+  if (btn) activateTab(btn.dataset.tab);
+});
+
+/* ============================================================
+   Grade scale (raw score -> letter), same one used in the reports
+   ============================================================ */
+function gradeFor(score) {
+  if (score >= 160) return "A+";
+  if (score >= 150) return "A";
+  if (score >= 140) return "A-";
+  if (score >= 130) return "B+";
+  if (score >= 120) return "B";
+  if (score >= 110) return "B-";
+  if (score >= 100) return "C";
+  if (score >= 90)  return "D";
+  if (score >= 80)  return "F";
+  return "F-";
+}
+function gradeClass(g) { return "grade-" + g.replace("+", "plus").replace("-", "minus"); }
+
+/* ============================================================
+   State + fetch helpers
+   ============================================================ */
+let players = {};
+let usersById = {};
+let rosterOwner = {};
+let rosterPositions = [];
+let leagueName = "One Bite Fantasy League";
+let currentWeek = 1;
+
+const statusEl = document.getElementById("statusLine");
+function setStatus(msg, isErr) {
+  statusEl.textContent = msg;
+  statusEl.className = "status-line" + (isErr ? " err" : "");
+}
+
+async function getJSON(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(url + " -> " + res.status);
+  return res.json();
+}
+
+async function loadPlayers() {
+  const cacheKey = "obl_players_cache_v1";
+  const cacheDateKey = "obl_players_cache_date_v1";
+  const today = new Date().toISOString().slice(0, 10);
+  try {
+    if (localStorage.getItem(cacheDateKey) === today) {
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) { players = JSON.parse(cached); return; }
+    }
+  } catch (e) { /* localStorage unavailable — just refetch */ }
+
+  const data = await getJSON("https://api.sleeper.app/v1/players/nfl");
+  players = data;
+  try {
+    localStorage.setItem(cacheKey, JSON.stringify(data));
+    localStorage.setItem(cacheDateKey, today);
+  } catch (e) { /* storage full or blocked — fine, just won't cache */ }
+}
+
+function playerLabel(id) {
+  if (id == null) return { name: "Empty", team: "" };
+  const p = players[id];
+  if (!p) return { name: id, team: "" };
+  const name = p.full_name || ((p.first_name || "") + " " + (p.last_name || "")).trim() || id;
+  const team = p.team ? p.team : "FA";
+  return { name, team: p.position ? (p.position + " · " + team) : team };
+}
+
+/* ============================================================
+   Init
+   ============================================================ */
+async function init() {
+  const startTab = (location.hash || "").replace("#", "");
+  if (TAB_NAMES.includes(startTab)) activateTab(startTab, false);
+
+  try {
+    setStatus("Loading league data from Sleeper…");
+
+    const [league, nflState] = await Promise.all([
+      getJSON(`https://api.sleeper.app/v1/league/${LEAGUE_ID}`),
+      getJSON("https://api.sleeper.app/v1/state/nfl"),
+    ]);
+    leagueName = league.name || leagueName;
+    document.title = leagueName + " — Command Center";
+    rosterPositions = (league.roster_positions || []).filter(p => p !== "BN" && p !== "IR" && p !== "TAXI");
+
+    currentWeek = nflState.week || 1;
+    const weekSelect = document.getElementById("weekSelect");
+    weekSelect.innerHTML = "";
+    for (let w = 1; w <= 18; w++) {
+      const opt = document.createElement("option");
+      opt.value = w; opt.textContent = "Week " + w;
+      if (w === currentWeek) opt.selected = true;
+      weekSelect.appendChild(opt);
+    }
+    weekSelect.addEventListener("change", () => renderWeek(parseInt(weekSelect.value, 10)));
+
+    const [users, rosters] = await Promise.all([
+      getJSON(`https://api.sleeper.app/v1/league/${LEAGUE_ID}/users`),
+      getJSON(`https://api.sleeper.app/v1/league/${LEAGUE_ID}/rosters`),
+    ]);
+    users.forEach(u => { usersById[u.user_id] = u.display_name || u.username || "Unknown"; });
+    rosters.forEach(r => { rosterOwner[r.roster_id] = r.owner_id; });
+    window.__rosters = rosters;
+
+    await loadPlayers();
+
+    setStatus("");
+    renderArchive();
+    renderOnTheBlock();
+    await renderWeek(currentWeek);
+    await renderPowerRankings();
+    await renderWaiverWire();
+    await renderTrades();
+  } catch (err) {
+    console.error(err);
+    setStatus("Couldn't reach Sleeper right now (" + err.message + "). Try Refresh, or check your connection.", true);
+  }
+}
+
+/* ============================================================
+   Scoreboard + matchup detail for one week
+   ============================================================ */
+async function renderWeek(week) {
+  setStatus("Loading Week " + week + "…");
+  let matchups;
+  try {
+    matchups = await getJSON(`https://api.sleeper.app/v1/league/${LEAGUE_ID}/matchups/${week}`);
+  } catch (err) {
+    setStatus("Couldn't load Week " + week + " matchups.", true);
+    return;
+  }
+  setStatus("");
+
+  const byMatchupId = {};
+  matchups.forEach(m => { (byMatchupId[m.matchup_id] = byMatchupId[m.matchup_id] || []).push(m); });
+  const pairs = Object.values(byMatchupId).filter(p => p.length === 2);
+
+  const scoreboard = document.getElementById("scoreboard");
+  const detailsRoot = document.getElementById("matchupDetails");
+  scoreboard.innerHTML = "";
+  detailsRoot.innerHTML = "";
+
+  pairs.forEach((pair, idx) => {
+    const [a, b] = pair;
+    const aName = usersById[rosterOwner[a.roster_id]] || ("Roster " + a.roster_id);
+    const bName = usersById[rosterOwner[b.roster_id]] || ("Roster " + b.roster_id);
+    const aScore = (a.points || 0).toFixed(2);
+    const bScore = (b.points || 0).toFixed(2);
+    const aWinning = a.points > b.points;
+    const bWinning = b.points > a.points;
+
+    const card = document.createElement("div");
+    card.className = "matchup-card";
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.innerHTML = `
+      <div class="mc-row">
+        <span class="mc-team ${aWinning ? "winning" : ""}">${escapeHtml(aName)}</span>
+        <span class="mc-score ${aWinning ? "winning" : ""}">${aScore}</span>
+      </div>
+      <div class="mc-sep"></div>
+      <div class="mc-row">
+        <span class="mc-team ${bWinning ? "winning" : ""}">${escapeHtml(bName)}</span>
+        <span class="mc-score ${bWinning ? "winning" : ""}">${bScore}</span>
+      </div>
+      <div class="mc-status">Matchup ${idx + 1} of ${pairs.length}</div>
+    `;
+    const detailId = "matchup-detail-" + idx;
+    card.addEventListener("click", () => toggleDetail(detailId));
+    card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleDetail(detailId); } });
+    scoreboard.appendChild(card);
+
+    const detail = document.createElement("div");
+    detail.className = "matchup-detail";
+    detail.id = detailId;
+    detail.innerHTML = `
+      <div class="md-head" data-toggle="${detailId}">
+        <h3>${escapeHtml(aName)} <span style="color:var(--chalk-dim);">vs</span> ${escapeHtml(bName)}</h3>
+        <span class="toggle">＋</span>
+      </div>
+      <div class="box-scroll">
+        <table class="box-table">
+          <thead><tr><th>Slot</th><th>Team A</th><th class="pts">Pts</th><th class="pts">Pts</th><th>Team B</th></tr></thead>
+          <tbody>${buildBoxRows(a, b)}</tbody>
+        </table>
+      </div>
+    `;
+    detail.querySelector(".md-head").addEventListener("click", () => toggleDetail(detailId));
+    detailsRoot.appendChild(detail);
+  });
+
+  if (pairs.length === 0) {
+    scoreboard.innerHTML = `<div class="empty-note">No matchups found for this week yet.</div>`;
+  }
+}
+
+function toggleDetail(id) {
+  const el = document.getElementById(id);
+  const isOpen = el.classList.contains("open");
+  document.querySelectorAll(".matchup-detail.open").forEach(d => { if (d.id !== id) d.classList.remove("open"); });
+  el.classList.toggle("open", !isOpen);
+  if (!isOpen) el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function buildBoxRows(a, b) {
+  const slots = rosterPositions.length ? rosterPositions : a.starters.map(() => "—");
+  const aStarters = a.starters || [];
+  const bStarters = b.starters || [];
+  const aPts = a.players_points || {};
+  const bPts = b.players_points || {};
+  let rows = "";
+  const n = Math.max(slots.length, aStarters.length, bStarters.length);
+  for (let i = 0; i < n; i++) {
+    const slot = slots[i] || "FLEX";
+    const aId = aStarters[i], bId = bStarters[i];
+    const aP = playerLabel(aId), bP = playerLabel(bId);
+    const aScore = aId != null ? (aPts[aId] != null ? aPts[aId].toFixed(2) : "0.00") : "—";
+    const bScore = bId != null ? (bPts[bId] != null ? bPts[bId].toFixed(2) : "0.00") : "—";
+    rows += `
+      <tr>
+        <td class="slot">${slot}</td>
+        <td><div class="plyr-name">${escapeHtml(aP.name)}</div><div class="plyr-team">${escapeHtml(aP.team)}</div></td>
+        <td class="pts">${aScore}</td>
+        <td class="pts">${bScore}</td>
+        <td><div class="plyr-name">${escapeHtml(bP.name)}</div><div class="plyr-team">${escapeHtml(bP.team)}</div></td>
+      </tr>`;
+  }
+  return rows;
+}
+
+/* ============================================================
+   Power rankings — raw = ((avg*6) + ((high+low)*2) + (win%*400)) / 10
+   ============================================================ */
+async function renderPowerRankings() {
+  const listEl = document.getElementById("rankingsList");
+  listEl.innerHTML = `<div class="empty-note">Crunching every completed week…</div>`;
+
+  const rosters = window.__rosters || [];
+  const totals = {};
+  rosters.forEach(r => { totals[r.roster_id] = { scores: [], wins: 0, losses: 0 }; });
+
+  const maxWeeksToCheck = Math.max(currentWeek, 1);
+  for (let w = 1; w <= maxWeeksToCheck; w++) {
+    let wk;
+    try { wk = await getJSON(`https://api.sleeper.app/v1/league/${LEAGUE_ID}/matchups/${w}`); }
+    catch (e) { continue; }
+    const byId = {};
+    wk.forEach(m => { (byId[m.matchup_id] = byId[m.matchup_id] || []).push(m); });
+    Object.values(byId).forEach(pair => {
+      if (pair.length !== 2) return;
+      const [a, b] = pair;
+      const aPts = a.points || 0, bPts = b.points || 0;
+      if (aPts === 0 && bPts === 0) return;
+      totals[a.roster_id].scores.push(aPts);
+      totals[b.roster_id].scores.push(bPts);
+      if (aPts > bPts) { totals[a.roster_id].wins++; totals[b.roster_id].losses++; }
+      else if (bPts > aPts) { totals[b.roster_id].wins++; totals[a.roster_id].losses++; }
+    });
+  }
+
+  const rows = Object.entries(totals)
+    .filter(([, t]) => t.scores.length > 0)
+    .map(([rid, t]) => {
+      const games = t.scores.length;
+      const avg = t.scores.reduce((s, v) => s + v, 0) / games;
+      const high = Math.max(...t.scores);
+      const low = Math.min(...t.scores);
+      const winPct = t.wins / games;
+      const raw = ((avg * 6) + ((high + low) * 2) + (winPct * 400)) / 10;
+      const owner = usersById[rosterOwner[rid]] || ("Roster " + rid);
+      return { rid, owner, avg, high, low, winPct, raw, wins: t.wins, losses: t.losses, games };
+    })
+    .sort((x, y) => y.raw - x.raw);
+
+  if (!rows.length) {
+    listEl.innerHTML = `<div class="empty-note">No completed weeks yet — power rankings will fill in once Week 1 finishes.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = rows.map((r, i) => {
+    const g = gradeFor(r.avg);
+    return `
+      <div class="rank-row">
+        <div class="rank-num">${i + 1}</div>
+        <div class="rank-team">
+          <div class="name">${escapeHtml(r.owner)}</div>
+          <div class="sub">${r.wins}-${r.losses} &middot; avg ${r.avg.toFixed(1)} &middot; hi ${r.high.toFixed(1)} / lo ${r.low.toFixed(1)}</div>
+        </div>
+        <div class="rank-stats"><b>${r.raw.toFixed(1)}</b> raw score</div>
+        <div class="grade-badge ${gradeClass(g)}">${g}</div>
+      </div>`;
+  }).join("");
+}
+
+/* ============================================================
+   Waiver wire
+   ============================================================ */
+async function fetchAllTransactions() {
+  const all = [];
+  const maxWeeksToCheck = Math.max(currentWeek, 1);
+  for (let w = 1; w <= maxWeeksToCheck; w++) {
+    try {
+      const tx = await getJSON(`https://api.sleeper.app/v1/league/${LEAGUE_ID}/transactions/${w}`);
+      all.push(...tx);
+    } catch (e) { /* week may not have transactions yet */ }
+  }
+  return all;
+}
+
+function txOwnerName(t) {
+  const rid = (t.roster_ids && t.roster_ids[0]) != null ? t.roster_ids[0] : null;
+  if (rid == null) return "Unknown";
+  return usersById[rosterOwner[rid]] || ("Roster " + rid);
+}
+
+async function renderWaiverWire() {
+  const el = document.getElementById("waiverList");
+  el.innerHTML = `<div class="empty-note">Loading transactions…</div>`;
+  let tx;
+  try { tx = await fetchAllTransactions(); }
+  catch (e) { el.innerHTML = `<div class="empty-note">Couldn't load transactions.</div>`; return; }
+
+  const moves = tx
+    .filter(t => (t.type === "waiver" || t.type === "free_agent") && t.status === "complete")
+    .sort((a, b) => (b.created || 0) - (a.created || 0))
+    .slice(0, 25);
+
+  if (!moves.length) {
+    el.innerHTML = `<div class="empty-note">No waiver or free-agent moves yet this season.</div>`;
+    return;
+  }
+
+  el.innerHTML = moves.map(t => {
+    const adds = t.adds ? Object.keys(t.adds) : [];
+    const drops = t.drops ? Object.keys(t.drops) : [];
+    const addLabel = adds.map(id => playerLabel(id).name).join(", ") || "—";
+    const dropLabel = drops.map(id => playerLabel(id).name).join(", ") || "—";
+    const bid = t.settings && t.settings.waiver_bid != null ? `$${t.settings.waiver_bid}` : (t.type === "free_agent" ? "FA" : "$0");
+    const when = t.created ? new Date(t.created).toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "";
+    return `
+      <div class="wire-row">
+        <div class="team">${escapeHtml(txOwnerName(t))}</div>
+        <div class="moves"><span class="add">+ ${escapeHtml(addLabel)}</span><span class="arrow">/</span><span class="drop">− ${escapeHtml(dropLabel)}</span></div>
+        <div>
+          <div class="bid">${escapeHtml(bid)}</div>
+          <div class="date">${when}</div>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+/* ============================================================
+   Trade block
+   ============================================================ */
+function renderOnTheBlock() {
+  const el = document.getElementById("blockList");
+  if (!ON_THE_BLOCK.length) {
+    el.innerHTML = `<div class="empty-note">Nobody's flagged a player as available right now.</div>`;
+    return;
+  }
+  el.innerHTML = ON_THE_BLOCK.map(item => `
+    <li class="archive-item">
+      <div>
+        <div class="title">${escapeHtml(item.player)} <span style="color:var(--chalk-dim);font-weight:400;">${escapeHtml(item.team || "")}</span></div>
+        <div class="date">${escapeHtml(item.owner || "")}${item.note ? " — " + escapeHtml(item.note) : ""}</div>
+      </div>
+    </li>
+  `).join("");
+}
+
+async function renderTrades() {
+  const el = document.getElementById("tradesList");
+  el.innerHTML = `<div class="empty-note">Loading trades…</div>`;
+  let tx;
+  try { tx = await fetchAllTransactions(); }
+  catch (e) { el.innerHTML = `<div class="empty-note">Couldn't load trades.</div>`; return; }
+
+  const trades = tx
+    .filter(t => t.type === "trade" && t.status === "complete")
+    .sort((a, b) => (b.created || 0) - (a.created || 0));
+
+  if (!trades.length) {
+    el.innerHTML = `<div class="empty-note">No trades completed yet this season.</div>`;
+    return;
+  }
+
+  el.innerHTML = trades.map(t => {
+    const when = t.created ? new Date(t.created).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) : "";
+    const sides = (t.roster_ids || []).map(rid => {
+      const owner = usersById[rosterOwner[rid]] || ("Roster " + rid);
+      const gained = t.adds ? Object.keys(t.adds).filter(pid => t.adds[pid] === rid) : [];
+      const faab = (t.waiver_budget || []).filter(w => w.receiver === rid);
+      let line = `<div class="trade-side"><span class="team">${escapeHtml(owner)}</span> gets ${gained.length ? gained.map(id => escapeHtml(playerLabel(id).name)).join(", ") : "—"}`;
+      if (faab.length) line += faab.map(w => ` + $${w.amount} FAAB`).join("");
+      line += `</div>`;
+      return line;
+    });
+    return `<div class="trade-card"><div class="date">${when}</div>${sides.join("")}</div>`;
+  }).join("");
+}
+
+/* ============================================================
+   Mailbag — submissions email straight to MAILBAG_EMAIL via FormSubmit.co
+   (no backend of your own needed, and it works on GitHub Pages or Netlify).
+
+   ONE-TIME SETUP:
+   1. Set MAILBAG_EMAIL above to the real address that should receive these.
+   2. Deploy the site and submit the form once yourself.
+   3. FormSubmit emails that address an activation link the first time — click it.
+      Every submission after that lands straight in the inbox, no dashboard needed.
+   ============================================================ */
+document.getElementById("mailbagForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const name = document.getElementById("mbName").value.trim();
+  const contact = document.getElementById("mbContact").value.trim();
+  const category = document.getElementById("mbCategory").value;
+  const message = document.getElementById("mbMessage").value.trim();
+  const honey = document.querySelector('input[name="_honey"]').value;
+  const statusEl2 = document.getElementById("mailbagStatus");
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  if (!name || !contact || !message || honey) return;
+
+  if (MAILBAG_EMAIL === "YOUR_EMAIL@example.com") {
+    statusEl2.textContent = "Mailbag isn't set up yet — add a real address to MAILBAG_EMAIL in the script.";
+    statusEl2.className = "mailbag-status err";
+    return;
+  }
+
+  submitBtn.disabled = true;
+  statusEl2.textContent = "Sending…";
+  statusEl2.className = "mailbag-status";
+
+  const body = new FormData();
+  body.append("League name / username", name);
+  body.append("Email or phone", contact);
+  body.append("Category", category);
+  body.append("Message", message);
+  body.append("_subject", `[One Bite Mailbag] ${category} from ${name}`);
+  body.append("_captcha", "false");
+  body.append("_template", "table");
+
+  try {
+    const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(MAILBAG_EMAIL)}`, {
+      method: "POST",
+      headers: { "Accept": "application/json" },
+      body,
+    });
+    if (!res.ok) throw new Error("status " + res.status);
+    statusEl2.textContent = "Sent. If this is the very first submission, check the inbox for a one-time FormSubmit activation link.";
+    statusEl2.className = "mailbag-status ok";
+    document.getElementById("mailbagForm").reset();
+  } catch (err) {
+    statusEl2.textContent = "Couldn't send that — check your connection and try again.";
+    statusEl2.className = "mailbag-status err";
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+
+/* ============================================================
+   Recap archive
+   ============================================================ */
+function renderArchive() {
+  const el = document.getElementById("archiveList");
+  el.innerHTML = ARCHIVE.map(item => `
+    <li class="archive-item">
+      <div>
+        <div class="title">${escapeHtml(item.title)}</div>
+        <div class="date">${escapeHtml(item.date)}</div>
+      </div>
+      ${item.file
+        ? `<a class="dl" href="recaps/${encodeURIComponent(item.file)}" target="_blank" rel="noopener">Open PDF</a>`
+        : `<span class="date">not uploaded yet</span>`}
+    </li>
+  `).join("");
+}
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, s => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[s]));
+}
+
+document.getElementById("refreshBtn").addEventListener("click", () => {
+  const w = parseInt(document.getElementById("weekSelect").value, 10);
+  renderWeek(w);
+  renderPowerRankings();
+  renderWaiverWire();
+  renderTrades();
+});
+
+init();
+</script>
+</body>
+</html>
