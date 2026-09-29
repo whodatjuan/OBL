@@ -369,21 +369,21 @@
       on this page. Leave your league name and an email or phone number so the commissioner can follow up if needed.
     </div>
 
-    <form class="mailbag-form" id="mailbagForm">
+    <form class="mailbag-form" id="mailbagForm" method="POST">
       <div class="row">
         <div class="field">
           <label for="mbName">Your league name / username</label>
-          <input type="text" id="mbName" name="name" maxlength="40" required>
+          <input type="text" id="mbName" name="League Name" maxlength="40" required>
         </div>
         <div class="field">
           <label for="mbContact">Email or phone number</label>
-          <input type="text" id="mbContact" name="contact" maxlength="80" required placeholder="you@email.com or 555-123-4567">
+          <input type="text" id="mbContact" name="Email or Phone" maxlength="80" required placeholder="you@email.com or 555-123-4567">
         </div>
       </div>
       <div class="row">
         <div class="field">
           <label for="mbCategory">Category</label>
-          <select id="mbCategory" name="category">
+          <select id="mbCategory" name="Category">
             <option value="Recommendation">Recommendation</option>
             <option value="Gripe">Gripe</option>
             <option value="Grievance">Grievance</option>
@@ -394,10 +394,14 @@
       </div>
       <div class="field" style="margin-bottom:12px;">
         <label for="mbMessage">Message</label>
-        <textarea id="mbMessage" name="message" maxlength="600" required placeholder="Waiver order is rigged. Also, tacos Tuesday at my place before the Week 5 slate."></textarea>
+        <textarea id="mbMessage" name="Message" maxlength="600" required placeholder="Waiver order is rigged. Also, tacos Tuesday at my place before the Week 5 slate."></textarea>
       </div>
       <!-- honeypot: real people never fill this in, FormSubmit uses it to drop spam bots -->
       <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_subject" id="mbSubject" value="[One Bite Mailbag] New message">
+      <input type="hidden" name="_next" id="mbNext" value="">
       <div class="submit-row">
         <span class="mailbag-status" id="mailbagStatus"></span>
         <button type="submit">Send it</button>
@@ -459,7 +463,7 @@ const ON_THE_BLOCK = [
 ];
 
 // Where Mailbag submissions get emailed. Edit this, then read the setup note above the submit handler below.
-const MAILBAG_EMAIL = "nanogamon@gmail.com";
+const MAILBAG_EMAIL = "YOUR_EMAIL@example.com";
 
 // The News tab's hand-written feature article. Update this whenever you want fresh content —
 // just replace headline/byline/paragraphs. Nothing else on the page depends on this.
@@ -1150,59 +1154,52 @@ async function renderNewsTab() {
    Mailbag — submissions email straight to MAILBAG_EMAIL via FormSubmit.co
    (no backend of your own needed, and it works on GitHub Pages or Netlify).
 
+   This uses a real form submission (full page POST), not a background fetch() —
+   FormSubmit blocks background/AJAX requests until an email+domain pair has been
+   verified once, so a plain submission is the reliable path, especially for the
+   very first message ever sent.
+
    ONE-TIME SETUP:
    1. Set MAILBAG_EMAIL above to the real address that should receive these.
    2. Deploy the site and submit the form once yourself.
-   3. FormSubmit emails that address an activation link the first time — click it.
-      Every submission after that lands straight in the inbox, no dashboard needed.
+   3. The first submission won't reach your inbox yet — FormSubmit intercepts it
+      and emails that address an activation link instead. Click it.
+   4. Every submission after that lands straight in the inbox, no dashboard needed.
    ============================================================ */
-document.getElementById("mailbagForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const name = document.getElementById("mbName").value.trim();
-  const contact = document.getElementById("mbContact").value.trim();
-  const category = document.getElementById("mbCategory").value;
-  const message = document.getElementById("mbMessage").value.trim();
-  const honey = document.querySelector('input[name="_honey"]').value;
+function setUpMailbagForm() {
+  const form = document.getElementById("mailbagForm");
   const statusEl2 = document.getElementById("mailbagStatus");
-  const submitBtn = e.target.querySelector('button[type="submit"]');
-  if (!name || !contact || !message || honey) return;
+  const nextField = document.getElementById("mbNext");
+  const cleanUrl = location.origin + location.pathname;
+  nextField.value = cleanUrl + "?sent=1#mailbag";
 
-  if (MAILBAG_EMAIL === "YOUR_EMAIL@example.com") {
-    statusEl2.textContent = "Mailbag isn't set up yet — add a real address to MAILBAG_EMAIL in the script.";
-    statusEl2.className = "mailbag-status err";
-    return;
-  }
-
-  submitBtn.disabled = true;
-  statusEl2.textContent = "Sending…";
-  statusEl2.className = "mailbag-status";
-
-  const body = new FormData();
-  body.append("League name / username", name);
-  body.append("Email or phone", contact);
-  body.append("Category", category);
-  body.append("Message", message);
-  body.append("_subject", `[One Bite Mailbag] ${category} from ${name}`);
-  body.append("_captcha", "false");
-  body.append("_template", "table");
-
-  try {
-    const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(MAILBAG_EMAIL)}`, {
-      method: "POST",
-      headers: { "Accept": "application/json" },
-      body,
-    });
-    if (!res.ok) throw new Error("status " + res.status);
-    statusEl2.textContent = "Sent. If this is the very first submission, check the inbox for a one-time FormSubmit activation link.";
+  if (new URLSearchParams(location.search).get("sent") === "1") {
+    statusEl2.textContent = "Sent. If that was the very first message ever, check the inbox for a one-time FormSubmit activation link before it'll deliver.";
     statusEl2.className = "mailbag-status ok";
-    document.getElementById("mailbagForm").reset();
-  } catch (err) {
-    statusEl2.textContent = "Couldn't send that — check your connection and try again.";
-    statusEl2.className = "mailbag-status err";
-  } finally {
-    submitBtn.disabled = false;
+    history.replaceState(null, "", cleanUrl + "#mailbag");
   }
-});
+
+  form.addEventListener("submit", e => {
+    const honey = form.querySelector('input[name="_honey"]').value;
+    if (honey) { e.preventDefault(); return; }
+
+    if (MAILBAG_EMAIL === "YOUR_EMAIL@example.com") {
+      e.preventDefault();
+      statusEl2.textContent = "Mailbag isn't set up yet — add a real address to MAILBAG_EMAIL in the script.";
+      statusEl2.className = "mailbag-status err";
+      return;
+    }
+
+    form.action = "https://formsubmit.co/" + encodeURIComponent(MAILBAG_EMAIL);
+    const category = document.getElementById("mbCategory").value;
+    const name = document.getElementById("mbName").value.trim();
+    document.getElementById("mbSubject").value = `[One Bite Mailbag] ${category} from ${name}`;
+    statusEl2.textContent = "Sending\u2026";
+    statusEl2.className = "mailbag-status";
+    // no preventDefault here — let the browser submit and navigate normally
+  });
+}
+setUpMailbagForm();
 
 /* ============================================================
    Recap archive
