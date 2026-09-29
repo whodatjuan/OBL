@@ -143,6 +143,53 @@
   .box-table .plyr-team { color: var(--chalk-dim); font-size: 11px; }
   .box-scroll { overflow-x: auto; }
 
+  /* ===== News tab ===== */
+  .news-note {
+    font-size: 12.5px; color: var(--chalk-dim); background: var(--navy-2); border-left: 3px solid var(--mustard-dim);
+    padding: 8px 12px; margin-bottom: 10px; line-height: 1.5;
+  }
+  .headline-card {
+    display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center;
+    border: 1px solid var(--rule); background: var(--navy-2); padding: 12px 16px; margin-bottom: 8px;
+  }
+  .headline-card .label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--mustard); font-weight: 600; }
+  .headline-card .text { font-size: 14px; margin-top: 2px; }
+  .headline-card .value { font-family: 'Teko', sans-serif; font-size: 26px; color: var(--chalk); text-align: right; white-space: nowrap; }
+  .trend-row { display: grid; grid-template-columns: 30px 1fr auto; gap: 10px; align-items: center; padding: 9px 4px; border-bottom: 1px solid var(--rule); font-size: 13px; }
+  .trend-row .arrow { font-family: 'Teko', sans-serif; font-size: 22px; }
+  .trend-up { color: var(--win); }
+  .trend-down { color: var(--loss); }
+  .trend-row .delta { font-family: 'Teko', sans-serif; font-size: 16px; text-align: right; white-space: nowrap; }
+  .article-card { background: var(--navy-2); border: 1px solid var(--rule); padding: 20px 22px; margin-bottom: 20px; }
+  .article-card .headline { font-family: 'Teko', sans-serif; font-size: 28px; color: var(--chalk); margin: 0 0 4px; line-height: 1.05; }
+  .article-card .byline { font-size: 11.5px; color: var(--mustard-dim); margin-bottom: 12px; }
+  .article-card p { font-size: 13.5px; line-height: 1.6; margin: 0 0 10px; }
+  .line-card { border: 1px solid var(--rule); background: var(--navy-2); padding: 12px 16px; margin-bottom: 8px; }
+  .line-card .teams { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 600; margin-bottom: 6px; }
+  .line-card .fav { color: var(--mustard); }
+  .line-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 12px; color: var(--chalk-dim); text-align: center; }
+  .line-grid .lv { font-family: 'Teko', sans-serif; font-size: 18px; color: var(--chalk); display: block; }
+  .pick-card { border: 1px solid var(--rule); background: var(--navy-2); padding: 12px 16px; margin-bottom: 8px; }
+  .pick-card .teams { font-size: 13px; color: var(--chalk-dim); margin-bottom: 8px; }
+  .pick-btns { display: flex; gap: 8px; }
+  .pick-btn {
+    flex: 1; background: var(--navy-3); color: var(--chalk); border: 1px solid var(--rule); border-radius: 3px;
+    padding: 8px; font-family: 'Work Sans', sans-serif; font-size: 12.5px; cursor: pointer; text-align: center;
+  }
+  .pick-btn:hover { border-color: var(--mustard); }
+  .pick-btn.picked { background: var(--mustard); color: var(--navy); border-color: var(--mustard); font-weight: 600; }
+  .quiz-card { border: 1px solid var(--rule); background: var(--navy-2); padding: 14px 16px; margin-bottom: 10px; }
+  .quiz-card .q { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+  .quiz-opts { display: flex; flex-direction: column; gap: 6px; }
+  .quiz-opt {
+    background: var(--navy-3); color: var(--chalk); border: 1px solid var(--rule); border-radius: 3px;
+    padding: 8px 12px; font-family: 'Work Sans', sans-serif; font-size: 12.5px; cursor: pointer; text-align: left;
+  }
+  .quiz-opt:hover { border-color: var(--mustard); }
+  .quiz-opt.correct { background: var(--win); color: white; border-color: var(--win); }
+  .quiz-opt.wrong { background: var(--loss); color: white; border-color: var(--loss); }
+  .quiz-opt[disabled] { cursor: default; }
+
   /* ===== Waiver wire + trades ===== */
   .subhead { font-size: 20px; font-weight: 500; color: var(--mustard); margin: 20px 0 8px; }
   .wire-row { display: grid; grid-template-columns: 130px 1fr auto; gap: 12px; align-items: center; padding: 10px 4px; border-bottom: 1px solid var(--rule); font-size: 13px; }
@@ -218,8 +265,9 @@
     <button class="week-btn" id="refreshBtn" type="button">Refresh</button>
   </div>
   <nav class="tabbar" id="tabbar">
-    <button class="tab-btn active" data-tab="matchups" type="button">Matchups</button>
+    <button class="tab-btn active" data-tab="news" type="button">News</button>
     <button class="tab-btn" data-tab="rankings" type="button">Power Rankings</button>
+    <button class="tab-btn" data-tab="matchups" type="button">Matchups</button>
     <button class="tab-btn" data-tab="waivers" type="button">Waiver Wire</button>
     <button class="tab-btn" data-tab="trades" type="button">Trade Block</button>
     <button class="tab-btn" data-tab="mailbag" type="button">Mailbag</button>
@@ -230,8 +278,41 @@
 <main>
   <div class="status-line" id="statusLine">Loading league data from Sleeper…</div>
 
+  <!-- ===== News (main tab) ===== -->
+  <section class="panel active" id="panel-news">
+    <div class="panel-head">
+      <h2>The One Bite Report</h2>
+      <div class="panel-sub">Headlines, risers &amp; fallers, predictions, and a word from the commissioner</div>
+    </div>
+
+    <h3 class="subhead">This Week's Headlines</h3>
+    <div id="newsHeadlines"></div>
+
+    <h3 class="subhead">Risers &amp; Fallers</h3>
+    <div class="news-note">Based on each team's last game vs. their own season average \u2014 not Sleeper's own trend data, just simple math run on the scores above.</div>
+    <div id="newsTrends"></div>
+
+    <h3 class="subhead" id="articleHeading">The Article</h3>
+    <div id="newsArticle"></div>
+
+    <h3 class="subhead">Matchup Predictions &amp; Lines</h3>
+    <div class="news-note">
+      <strong>These are not Sleeper's numbers.</strong> Sleeper doesn't share its win% or projections outside the app,
+      so these lines are worked out live from each team's own season scoring average \u2014 a rough, for-fun estimate,
+      not a real betting line or an official projection.
+    </div>
+    <div id="newsLines"></div>
+
+    <h3 class="subhead">Pick 'Em</h3>
+    <div class="news-note">Your picks save to this device only \u2014 nobody else sees them, and nothing's scored. Just for fun.</div>
+    <div id="newsPickem"></div>
+
+    <h3 class="subhead">League Trivia</h3>
+    <div id="newsTrivia"></div>
+  </section>
+
   <!-- ===== Matchups ===== -->
-  <section class="panel active" id="panel-matchups">
+  <section class="panel" id="panel-matchups">
     <div class="panel-head">
       <h2>Matchups</h2>
       <div class="weekpicker">
@@ -380,12 +461,69 @@ const ON_THE_BLOCK = [
 // Where Mailbag submissions get emailed. Edit this, then read the setup note above the submit handler below.
 const MAILBAG_EMAIL = "YOUR_EMAIL@example.com";
 
+// The News tab's hand-written feature article. Update this whenever you want fresh content —
+// just replace headline/byline/paragraphs. Nothing else on the page depends on this.
+const ARTICLE = {
+  headline: "Two Teams Still Unbeaten as the Field Starts to Separate",
+  byline: "The One Bite Report \u00b7 Week 3 Recap",
+  paragraphs: [
+    "Three weeks in, and the league has its first real hierarchy. Raymond49 and Whodatjuan are the only unbeaten " +
+    "teams left standing at 3-0, while mattware1199 and satiro are still searching for their first win at 0-3. " +
+    "Everyone else is bunched in the middle, separated by a single game.",
+
+    "Raymond49's Week 3 was the loudest statement of the season so far: 192.08 points, the week's Highest Score, " +
+    "built on Bijan Robinson's 35-point day and a 4-touchdown game from Brock Purdy. It's the kind of week that " +
+    "doesn't happen by accident \u2014 Raymond49 beat its own projection by 47%, the biggest overachievement of any " +
+    "team this year.",
+
+    "On the other side of the ledger, JLozoya had the roughest week in the league: Worst Manager, Lowest Scorer, " +
+    "and the wrong end of the season's Biggest Blowout, a 64.9% margin loss to NathanR918. Drew Lock's zero-point " +
+    "outing didn't help, but the bigger issue was a bench that outscored the starting lineup by 23%.",
+
+    "The best individual performance of the week belongs to Jer13's Jahmyr Gibbs \u2014 41.40 points on three " +
+    "touchdowns \u2014 which was just enough to survive the season's Narrowest Victory, a 2.4% win over Zaniac18's " +
+    "Drake London-powered attack. Two teams, one score that could not have been closer.",
+
+    "With four weeks of data now in the books, the power rankings are starting to mean something. Watch this space.",
+  ],
+};
+
+// League trivia quiz. Each question needs 3-4 options and the index of the correct one (0-based).
+// Add more over time — there's no limit, and they render in the order listed here.
+const TRIVIA = [
+  {
+    q: "Who was Week 3's Highest Scorer in the league?",
+    options: ["Whodatjuan", "Raymond49", "Jer13", "Karrrobi"],
+    correct: 1,
+  },
+  {
+    q: "Which team suffered the league's Biggest Blowout in Week 3, at a 64.9% margin?",
+    options: ["JLozoya lost to NathanR918", "satiro lost to Karrrobi", "mattware1199 lost to Whodatjuan", "Zaniac18 lost to Jer13"],
+    correct: 0,
+  },
+  {
+    q: "Jahmyr Gibbs put up the best individual score of Week 3. How many points did he score?",
+    options: ["35.30", "28.40", "41.40", "31.28"],
+    correct: 2,
+  },
+  {
+    q: "Which two teams remained unbeaten after Week 3?",
+    options: ["Raymond49 and Whodatjuan", "Caullyn and Jer13", "Karrrobi and NathanR918", "hogsett7 and 00sef"],
+    correct: 0,
+  },
+  {
+    q: "Who was the Week 3 Narrow Victory winner, beating Zaniac18 by just 2.4%?",
+    options: ["Karrrobi", "00sef", "Jer13", "Caullyn"],
+    correct: 2,
+  },
+];
+
 /* ============================================================
    Tabs
    ============================================================ */
-const TAB_NAMES = ["matchups", "rankings", "waivers", "trades", "mailbag", "archive"];
+const TAB_NAMES = ["news", "rankings", "matchups", "waivers", "trades", "mailbag", "archive"];
 function activateTab(name, pushHash) {
-  if (!TAB_NAMES.includes(name)) name = "matchups";
+  if (!TAB_NAMES.includes(name)) name = "news";
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
   document.querySelectorAll(".panel").forEach(p => p.classList.toggle("active", p.id === "panel-" + name));
   if (pushHash !== false) history.replaceState(null, "", "#" + name);
@@ -508,6 +646,7 @@ async function init() {
     await renderPowerRankings();
     await renderWaiverWire();
     await renderTrades();
+    await renderNewsTab();
   } catch (err) {
     console.error(err);
     setStatus("Couldn't reach Sleeper right now (" + err.message + "). Try Refresh, or check your connection.", true);
@@ -628,13 +767,12 @@ function buildBoxRows(a, b) {
 /* ============================================================
    Power rankings — raw = ((avg*6) + ((high+low)*2) + (win%*400)) / 10
    ============================================================ */
-async function renderPowerRankings() {
-  const listEl = document.getElementById("rankingsList");
-  listEl.innerHTML = `<div class="empty-note">Crunching every completed week…</div>`;
-
+let __seasonStatsCache = null;
+async function computeSeasonStats() {
+  if (__seasonStatsCache) return __seasonStatsCache;
   const rosters = window.__rosters || [];
   const totals = {};
-  rosters.forEach(r => { totals[r.roster_id] = { scores: [], wins: 0, losses: 0 }; });
+  rosters.forEach(r => { totals[r.roster_id] = { scores: [], wins: 0, losses: 0, weeks: [] }; });
 
   const maxWeeksToCheck = Math.max(currentWeek, 1);
   for (let w = 1; w <= maxWeeksToCheck; w++) {
@@ -648,13 +786,21 @@ async function renderPowerRankings() {
       const [a, b] = pair;
       const aPts = a.points || 0, bPts = b.points || 0;
       if (aPts === 0 && bPts === 0) return;
-      totals[a.roster_id].scores.push(aPts);
-      totals[b.roster_id].scores.push(bPts);
+      totals[a.roster_id].scores.push(aPts); totals[a.roster_id].weeks.push(w);
+      totals[b.roster_id].scores.push(bPts); totals[b.roster_id].weeks.push(w);
       if (aPts > bPts) { totals[a.roster_id].wins++; totals[b.roster_id].losses++; }
       else if (bPts > aPts) { totals[b.roster_id].wins++; totals[a.roster_id].losses++; }
     });
   }
+  __seasonStatsCache = totals;
+  return totals;
+}
 
+async function renderPowerRankings() {
+  const listEl = document.getElementById("rankingsList");
+  listEl.innerHTML = `<div class="empty-note">Crunching every completed week…</div>`;
+
+  const totals = await computeSeasonStats();
   const rows = Object.entries(totals)
     .filter(([, t]) => t.scores.length > 0)
     .map(([rid, t]) => {
@@ -688,6 +834,8 @@ async function renderPowerRankings() {
       </div>`;
   }).join("");
 }
+
+
 
 /* ============================================================
    Waiver wire
@@ -797,6 +945,208 @@ async function renderTrades() {
 }
 
 /* ============================================================
+   News tab — headlines, risers/fallers, article, lines, pick'em, trivia
+   ============================================================ */
+async function fetchWeekPairs(week) {
+  let wk;
+  try { wk = await getJSON(`https://api.sleeper.app/v1/league/${LEAGUE_ID}/matchups/${week}`); }
+  catch (e) { return []; }
+  const byId = {};
+  wk.forEach(m => { (byId[m.matchup_id] = byId[m.matchup_id] || []).push(m); });
+  return Object.values(byId).filter(p => p.length === 2).map(([a, b]) => ({
+    aRid: a.roster_id, bRid: b.roster_id,
+    aName: usersById[rosterOwner[a.roster_id]] || ("Roster " + a.roster_id),
+    bName: usersById[rosterOwner[b.roster_id]] || ("Roster " + b.roster_id),
+    aPts: a.points || 0, bPts: b.points || 0,
+  }));
+}
+
+async function getMostRecentCompletedWeek() {
+  for (let w = currentWeek; w >= 1; w--) {
+    let wk;
+    try { wk = await getJSON(`https://api.sleeper.app/v1/league/${LEAGUE_ID}/matchups/${w}`); }
+    catch (e) { continue; }
+    if (wk.some(m => (m.points || 0) > 0)) return w;
+  }
+  return null;
+}
+
+function headlineCard(label, text, value) {
+  return `<div class="headline-card"><div><div class="label">${escapeHtml(label)}</div><div class="text">${escapeHtml(text)}</div></div><div class="value">${escapeHtml(value)}</div></div>`;
+}
+
+async function renderNewsHeadlines() {
+  const el = document.getElementById("newsHeadlines");
+  el.innerHTML = `<div class="empty-note">Loading this week's headlines…</div>`;
+  const week = await getMostRecentCompletedWeek();
+  if (week == null) { el.innerHTML = `<div class="empty-note">No completed games yet this season.</div>`; return; }
+  const pairs = await fetchWeekPairs(week);
+  if (!pairs.length) { el.innerHTML = `<div class="empty-note">No matchup data found for Week ${week}.</div>`; return; }
+
+  let highest = null, lowest = null, blowoutMargin = -1, blowout = null, narrowMargin = Infinity, narrow = null;
+  pairs.forEach(p => {
+    [{ name: p.aName, pts: p.aPts }, { name: p.bName, pts: p.bPts }].forEach(t => {
+      if (!highest || t.pts > highest.pts) highest = t;
+      if (!lowest || t.pts < lowest.pts) lowest = t;
+    });
+    const total = p.aPts + p.bPts;
+    if (total > 0) {
+      const margin = Math.abs(p.aPts - p.bPts) / total;
+      if (margin > blowoutMargin) { blowoutMargin = margin; blowout = p; }
+      if (margin < narrowMargin) { narrowMargin = margin; narrow = p; }
+    }
+  });
+
+  const cards = [];
+  cards.push(headlineCard("Highest Scorer", highest.name, `${highest.pts.toFixed(2)} pts`));
+  cards.push(headlineCard("Lowest Scorer", lowest.name, `${lowest.pts.toFixed(2)} pts`));
+  if (blowout) {
+    const w2 = blowout.aPts > blowout.bPts ? blowout.aName : blowout.bName;
+    const l2 = blowout.aPts > blowout.bPts ? blowout.bName : blowout.aName;
+    cards.push(headlineCard("Biggest Blowout", `${w2} over ${l2}`, `${(blowoutMargin * 100).toFixed(1)}% margin`));
+  }
+  if (narrow) {
+    const w3 = narrow.aPts > narrow.bPts ? narrow.aName : narrow.bName;
+    const l3 = narrow.aPts > narrow.bPts ? narrow.bName : narrow.aName;
+    cards.push(headlineCard("Narrowest Victory", `${w3} over ${l3}`, `${(narrowMargin * 100).toFixed(1)}% margin`));
+  }
+  el.innerHTML = `<div class="news-note">Live from Week ${week}, the most recently completed slate.</div>` + cards.join("");
+}
+
+async function renderRisersFallers() {
+  const el = document.getElementById("newsTrends");
+  el.innerHTML = `<div class="empty-note">Crunching trends…</div>`;
+  const totals = await computeSeasonStats();
+  const rows = Object.entries(totals)
+    .filter(([, t]) => t.scores.length >= 2)
+    .map(([rid, t]) => {
+      const last = t.scores[t.scores.length - 1];
+      const prior = t.scores.slice(0, -1);
+      const priorAvg = prior.reduce((s, v) => s + v, 0) / prior.length;
+      const owner = usersById[rosterOwner[rid]] || ("Roster " + rid);
+      return { owner, last, priorAvg, delta: last - priorAvg };
+    });
+  if (rows.length < 2) {
+    el.innerHTML = `<div class="empty-note">Need at least two completed weeks before trends mean anything.</div>`;
+    return;
+  }
+  const sorted = rows.slice().sort((a, b) => b.delta - a.delta);
+  const risers = sorted.slice(0, 3).filter(r => r.delta > 0);
+  const fallers = sorted.slice(-3).reverse().filter(r => r.delta < 0);
+  function row(r, up) {
+    const cls = up ? "trend-up" : "trend-down";
+    return `<div class="trend-row"><div class="arrow ${cls}">${up ? "\u2191" : "\u2193"}</div><div>${escapeHtml(r.owner)} <span style="color:var(--chalk-dim);font-size:11px;">last game ${r.last.toFixed(1)} vs ${r.priorAvg.toFixed(1)} season avg</span></div><div class="delta ${cls}">${up ? "+" : ""}${r.delta.toFixed(1)}</div></div>`;
+  }
+  const html = risers.map(r => row(r, true)).join("") + fallers.map(r => row(r, false)).join("");
+  el.innerHTML = html || `<div class="empty-note">Nobody's trending much either way right now.</div>`;
+}
+
+function renderArticle() {
+  const el = document.getElementById("newsArticle");
+  el.innerHTML = `<div class="article-card"><div class="headline">${escapeHtml(ARTICLE.headline)}</div><div class="byline">${escapeHtml(ARTICLE.byline)}</div>${ARTICLE.paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join("")}</div>`;
+}
+
+async function renderPredictionLines() {
+  const el = document.getElementById("newsLines");
+  el.innerHTML = `<div class="empty-note">Building lines for Week ${currentWeek}…</div>`;
+  const totals = await computeSeasonStats();
+  const avgFor = rid => {
+    const t = totals[rid];
+    if (!t || !t.scores.length) return null;
+    return t.scores.reduce((s, v) => s + v, 0) / t.scores.length;
+  };
+  const pairs = await fetchWeekPairs(currentWeek);
+  if (!pairs.length) { el.innerHTML = `<div class="empty-note">No Week ${currentWeek} matchups posted yet.</div>`; return; }
+  el.innerHTML = pairs.map(p => {
+    const aAvg = avgFor(p.aRid), bAvg = avgFor(p.bRid);
+    if (aAvg == null || bAvg == null) {
+      return `<div class="line-card"><div class="teams"><span>${escapeHtml(p.aName)}</span><span>${escapeHtml(p.bName)}</span></div><div class="news-note" style="margin:8px 0 0;">Not enough season data yet for a line.</div></div>`;
+    }
+    const spread = aAvg - bAvg;
+    const favName = spread >= 0 ? p.aName : p.bName;
+    const ou = aAvg + bAvg;
+    const winA = 1 / (1 + Math.pow(10, -spread / 14));
+    const winPctA = Math.round(winA * 100), winPctB = 100 - winPctA;
+    return `
+      <div class="line-card">
+        <div class="teams"><span class="${spread >= 0 ? "fav" : ""}">${escapeHtml(p.aName)}</span><span class="${spread < 0 ? "fav" : ""}">${escapeHtml(p.bName)}</span></div>
+        <div class="line-grid">
+          <div><span class="lv">${escapeHtml(favName)} -${Math.abs(spread).toFixed(1)}</span>Spread</div>
+          <div><span class="lv">${ou.toFixed(1)}</span>O/U</div>
+          <div><span class="lv">${winPctA}% / ${winPctB}%</span>Win Odds</div>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+function loadPicks() { try { return JSON.parse(localStorage.getItem("obl_pickem_v1") || "{}"); } catch (e) { return {}; } }
+function savePicks(p) { try { localStorage.setItem("obl_pickem_v1", JSON.stringify(p)); } catch (e) { /* storage blocked */ } }
+
+async function renderPickem() {
+  const el = document.getElementById("newsPickem");
+  el.innerHTML = `<div class="empty-note">Loading Week ${currentWeek} matchups…</div>`;
+  const pairs = await fetchWeekPairs(currentWeek);
+  if (!pairs.length) { el.innerHTML = `<div class="empty-note">No Week ${currentWeek} matchups posted yet.</div>`; return; }
+  const picks = loadPicks();
+  el.innerHTML = pairs.map((p, i) => {
+    const key = `w${currentWeek}_m${i}`;
+    const picked = picks[key];
+    return `
+      <div class="pick-card">
+        <div class="teams">Week ${currentWeek} \u00b7 Matchup ${i + 1}</div>
+        <div class="pick-btns">
+          <button class="pick-btn ${picked === "a" ? "picked" : ""}" data-key="${key}" data-side="a">${escapeHtml(p.aName)}</button>
+          <button class="pick-btn ${picked === "b" ? "picked" : ""}" data-key="${key}" data-side="b">${escapeHtml(p.bName)}</button>
+        </div>
+      </div>`;
+  }).join("");
+  el.querySelectorAll(".pick-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const picks2 = loadPicks();
+      picks2[btn.dataset.key] = btn.dataset.side;
+      savePicks(picks2);
+      renderPickem();
+    });
+  });
+}
+
+function renderTrivia() {
+  const el = document.getElementById("newsTrivia");
+  el.innerHTML = TRIVIA.map((q, qi) => `
+    <div class="quiz-card">
+      <div class="q">${escapeHtml(q.q)}</div>
+      <div class="quiz-opts">
+        ${q.options.map((opt, oi) => `<button class="quiz-opt" data-qi="${qi}" data-oi="${oi}">${escapeHtml(opt)}</button>`).join("")}
+      </div>
+    </div>
+  `).join("");
+  el.querySelectorAll(".quiz-opt").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const qi = parseInt(btn.dataset.qi, 10), oi = parseInt(btn.dataset.oi, 10);
+      const card = btn.closest(".quiz-card");
+      const correct = TRIVIA[qi].correct;
+      card.querySelectorAll(".quiz-opt").forEach(b => {
+        b.disabled = true;
+        const boi = parseInt(b.dataset.oi, 10);
+        if (boi === correct) b.classList.add("correct");
+        else if (boi === oi) b.classList.add("wrong");
+      });
+    });
+  });
+}
+
+async function renderNewsTab() {
+  renderArticle();
+  renderTrivia();
+  await Promise.all([
+    renderNewsHeadlines(),
+    renderRisersFallers(),
+    renderPredictionLines(),
+    renderPickem(),
+  ]);
+}
+
+/* ============================================================
    Mailbag — submissions email straight to MAILBAG_EMAIL via FormSubmit.co
    (no backend of your own needed, and it works on GitHub Pages or Netlify).
 
@@ -880,11 +1230,13 @@ function escapeHtml(str) {
 }
 
 document.getElementById("refreshBtn").addEventListener("click", () => {
+  __seasonStatsCache = null;
   const w = parseInt(document.getElementById("weekSelect").value, 10);
   renderWeek(w);
   renderPowerRankings();
   renderWaiverWire();
   renderTrades();
+  renderNewsTab();
 });
 
 init();
