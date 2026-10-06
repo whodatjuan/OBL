@@ -431,7 +431,12 @@
    ============================================================ */
 const LEAGUE_ID = "1386160203438751744";
 
-const ARCHIVE = [
+const ARCHIVE = [ 
+  { title: "Week 4: Final Recap", date: "Oct 6, 2026", file: "one-bite-league-week4-final-recap.pdf" },
+  { title: "Trade Analyzer: Zaniac18 & mattware1199 (Barkley for Nabers)", date: "Oct 5, 2026", file: "one-bite-league-trade-analyzer-zaniac18-mattware1199.pdf" },
+  { title: "Trade Review: Zaniac18 & satiro (Gordon for Robinson + FAAB)", date: "Sept 30, 2026", file: "one-bite-league-trade-review-zaniac18-satiro-concise.pdf" },
+  { title: "The One Bite Report: Week 4 Preview", date: "Sept 30, 2026", file: "one-bite-report-week4-preview.pdf" },
+  { title: "The One Bite Report: Week 4 Recap", date: "Oct 6, 2026", file: "one-bite-report-week4-recap.pdf" }
   { title: "Week 4: Preview", date: "Sept 29, 2026", file: "one-bite-league-week4-preview.pdf" },
   { title: "Week 3: Final Recap", date: "Sept 29, 2026", file: "one-bite-league-week3-final-recap.pdf" },
   { title: "Week 3: Sunday Recap + Monday Preview", date: "Sept 28, 2026", file: "one-bite-league-week3-sunday-recap-monday-preview.pdf" },
@@ -468,27 +473,30 @@ const MAILBAG_EMAIL = "nanogamon@gmail.com";
 // The News tab's hand-written feature article. Update this whenever you want fresh content —
 // just replace headline/byline/paragraphs. Nothing else on the page depends on this.
 const ARTICLE = {
-  headline: "Two Teams Still Unbeaten as the Field Starts to Separate",
-  byline: "The One Bite Report \u00b7 Week 3 Recap",
+  headline: "A Perfect 221.02, a Closed Winless Club, and Two Teams Still Unbeaten",
+  byline: "The One Bite Report \u00b7 Week 4 Recap",
   paragraphs: [
-    "Three weeks in, and the league has its first real hierarchy. Raymond49 and Whodatjuan are the only unbeaten " +
-    "teams left standing at 3-0, while mattware1199 and satiro are still searching for their first win at 0-3. " +
-    "Everyone else is bunched in the middle, separated by a single game.",
+    "Week 4 belonged to 00sef. The lineup it set scored the maximum points possible, 221.02, a new season high by " +
+    "29 points over Raymond49's 192.08 from Week 3. Caullyn's 162.68 was its best score of the year and the " +
+    "fourth-highest of the week, and it still lost by 58. Both teams are 2-2, but Caullyn has now allowed more " +
+    "points than anyone in the league (655.18).",
 
-    "Raymond49's Week 3 was the loudest statement of the season so far: 192.08 points, the week's Highest Score, " +
-    "built on Bijan Robinson's 35-point day and a 4-touchdown game from Brock Purdy. It's the kind of week that " +
-    "doesn't happen by accident \u2014 Raymond49 beat its own projection by 47%, the biggest overachievement of any " +
-    "team this year.",
+    "The winless club is officially closed. mattware1199 (174.08) and satiro (153.10) each posted a season high " +
+    "to win their first games, over Jer13 and Zaniac18 respectively. Nobody is 0-4, but five teams are now 1-3, " +
+    "so the bottom of the standings is as crowded as the top is thin.",
 
-    "On the other side of the ledger, JLozoya had the roughest week in the league: Worst Manager, Lowest Scorer, " +
-    "and the wrong end of the season's Biggest Blowout, a 64.9% margin loss to NathanR918. Drew Lock's zero-point " +
-    "outing didn't help, but the bigger issue was a bench that outscored the starting lineup by 23%.",
+    "At the top, Raymond49 and Whodatjuan are both 4-0. Raymond49 beat NathanR918 by an 82.3% margin, the biggest " +
+    "blowout of the week, while NathanR918 was named Worst Manager for leaving 28 points on the table. " +
+    "Whodatjuan won with 109.54, its lowest score of the year, because JLozoya's 64.74 was the lowest team score " +
+    "of the season so far.",
 
-    "The best individual performance of the week belongs to Jer13's Jahmyr Gibbs \u2014 41.40 points on three " +
-    "touchdowns \u2014 which was just enough to survive the season's Narrowest Victory, a 2.4% win over Zaniac18's " +
-    "Drake London-powered attack. Two teams, one score that could not have been closer.",
+    "The week's narrowest result went to Karrrobi, who edged hogsett7 by 9.9% and sits alone in third at 3-1 with " +
+    "every dollar of its FAAB still unspent. And the trade market had a big Monday: Zaniac18 and mattware1199 " +
+    "swapped Saquon Barkley (hamstring, expected out at least Week 5) for Malik Nabers (6/112/1 on Sunday), " +
+    "the same weekend both players' stock moved in opposite directions.",
 
-    "With four weeks of data now in the books, the power rankings are starting to mean something. Watch this space.",
+    "On the power rankings, mattware1199 climbs five spots, while JLozoya falls four to last. Check the Power " +
+    "Rankings tab for the full picture.",
   ],
 };
 
@@ -496,29 +504,39 @@ const ARTICLE = {
 // Add more over time — there's no limit, and they render in the order listed here.
 const TRIVIA = [
   {
-    q: "Who was Week 3's Highest Scorer in the league?",
-    options: ["Whodatjuan", "Raymond49", "Jer13", "Karrrobi"],
+    q: "Who set the perfect lineup in Week 4 and scored the league's best total, 221.02?",
+    options: ["Raymond49", "00sef", "Caullyn", "mattware1199"],
     correct: 1,
   },
   {
-    q: "Which team suffered the league's Biggest Blowout in Week 3, at a 64.9% margin?",
-    options: ["JLozoya lost to NathanR918", "satiro lost to Karrrobi", "mattware1199 lost to Whodatjuan", "Zaniac18 lost to Jer13"],
+    q: "Which two teams earned their first win of the season in Week 4?",
+    options: ["mattware1199 and satiro", "JLozoya and hogsett7", "Zaniac18 and Jer13", "NathanR918 and Caullyn"],
     correct: 0,
   },
   {
-    q: "Jahmyr Gibbs put up the best individual score of Week 3. How many points did he score?",
-    options: ["35.30", "28.40", "41.40", "31.28"],
+    q: "Which two teams remain unbeaten after Week 4?",
+    options: ["Karrrobi and 00sef", "Raymond49 and Whodatjuan", "Caullyn and Jer13", "Raymond49 and Karrrobi"],
+    correct: 1,
+  },
+  {
+    q: "NathanR918 was named Worst Manager in Week 4. What did NathanR918 actually score?",
+    options: ["118.02", "64.74", "90.02", "76.00"],
     correct: 2,
   },
   {
-    q: "Which two teams remained unbeaten after Week 3?",
-    options: ["Raymond49 and Whodatjuan", "Caullyn and Jer13", "Karrrobi and NathanR918", "hogsett7 and 00sef"],
+    q: "Who won the week's narrowest game, a 9.9% margin?",
+    options: ["Karrrobi over hogsett7", "Jer13 over mattware1199", "Whodatjuan over JLozoya", "satiro over Zaniac18"],
     correct: 0,
   },
   {
-    q: "Who was the Week 3 Narrow Victory winner, beating Zaniac18 by just 2.4%?",
-    options: ["Karrrobi", "00sef", "Jer13", "Caullyn"],
-    correct: 2,
+    q: "Which two players were swapped in the trade between Zaniac18 and mattware1199?",
+    options: ["Barkley for Nabers", "Gordon for Robinson", "Achane for Hampton", "Gibbs for Walker"],
+    correct: 0,
+  },
+  {
+    q: "Which team has the lowest FAAB balance in the league after Week 4?",
+    options: ["Zaniac18 ($45)", "mattware1199 ($54)", "satiro ($54)", "hogsett7 ($78)"],
+    correct: 0,
   },
 ];
 
