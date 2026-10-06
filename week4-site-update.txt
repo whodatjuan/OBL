@@ -1,0 +1,110 @@
+ONE BITE COMMAND CENTER - WEEK 4 SITE UPDATE (paste-in blocks)
+=====================================================================
+Edit index.html on GitHub (open it, click the pencil icon), make the three changes below, then Commit.
+Tip: use Ctrl/Cmd+F to jump to each marker. Don't touch anything else.
+
+BEFORE YOU START: upload these 4 PDFs into the /recaps folder of your repo (exact filenames):
+  one-bite-league-week4-final-recap.pdf
+  one-bite-league-trade-analyzer-zaniac18-mattware1199.pdf
+  one-bite-league-trade-review-zaniac18-satiro-concise.pdf
+  one-bite-report-week4-preview.pdf
+
+
+STEP 1 - ARCHIVE  (4 new lines)
+---------------------------------------------------------------------
+Search for:   const ARCHIVE = [
+Paste these 4 lines on the line directly BELOW it (above the "Week 4: Preview" line):
+
+  { title: "Week 4: Final Recap", date: "Oct 6, 2026", file: "one-bite-league-week4-final-recap.pdf" },
+  { title: "Trade Analyzer: Zaniac18 & mattware1199 (Barkley for Nabers)", date: "Oct 5, 2026", file: "one-bite-league-trade-analyzer-zaniac18-mattware1199.pdf" },
+  { title: "Trade Review: Zaniac18 & satiro (Gordon for Robinson + FAAB)", date: "Sept 30, 2026", file: "one-bite-league-trade-review-zaniac18-satiro-concise.pdf" },
+  { title: "The One Bite Report: Week 4 Preview", date: "Sept 30, 2026", file: "one-bite-report-week4-preview.pdf" },
+
+
+STEP 2 - ARTICLE  (replace the whole block)
+---------------------------------------------------------------------
+Search for:   const ARTICLE = {
+Select everything from that line down to the closing   };   (the one that ends the block,
+right before the "League trivia quiz" comment), delete it, and paste this in its place:
+
+const ARTICLE = {
+  headline: "A Perfect 221.02, a Closed Winless Club, and Two Teams Still Unbeaten",
+  byline: "The One Bite Report \u00b7 Week 4 Recap",
+  paragraphs: [
+    "Week 4 belonged to 00sef. The lineup it set scored the maximum points possible, 221.02, a new season high by " +
+    "29 points over Raymond49's 192.08 from Week 3. Caullyn's 162.68 was its best score of the year and the " +
+    "fourth-highest of the week, and it still lost by 58. Both teams are 2-2, but Caullyn has now allowed more " +
+    "points than anyone in the league (655.18).",
+
+    "The winless club is officially closed. mattware1199 (174.08) and satiro (153.10) each posted a season high " +
+    "to win their first games, over Jer13 and Zaniac18 respectively. Nobody is 0-4, but five teams are now 1-3, " +
+    "so the bottom of the standings is as crowded as the top is thin.",
+
+    "At the top, Raymond49 and Whodatjuan are both 4-0. Raymond49 beat NathanR918 by an 82.3% margin, the biggest " +
+    "blowout of the week, while NathanR918 was named Worst Manager for leaving 28 points on the table. " +
+    "Whodatjuan won with 109.54, its lowest score of the year, because JLozoya's 64.74 was the lowest team score " +
+    "of the season so far.",
+
+    "The week's narrowest result went to Karrrobi, who edged hogsett7 by 9.9% and sits alone in third at 3-1 with " +
+    "every dollar of its FAAB still unspent. And the trade market had a big Monday: Zaniac18 and mattware1199 " +
+    "swapped Saquon Barkley (hamstring, expected out at least Week 5) for Malik Nabers (6/112/1 on Sunday), " +
+    "the same weekend both players' stock moved in opposite directions.",
+
+    "On the power rankings, mattware1199 climbs five spots, while JLozoya falls four to last. Check the Power " +
+    "Rankings tab for the full picture.",
+  ],
+};
+
+
+STEP 3 - TRIVIA  (replace the whole block)
+---------------------------------------------------------------------
+Search for:   const TRIVIA = [
+Select everything from that line down to the closing   ];   that ends the block, delete it,
+and paste this in its place:
+
+const TRIVIA = [
+  {
+    q: "Who set the perfect lineup in Week 4 and scored the league's best total, 221.02?",
+    options: ["Raymond49", "00sef", "Caullyn", "mattware1199"],
+    correct: 1,
+  },
+  {
+    q: "Which two teams earned their first win of the season in Week 4?",
+    options: ["mattware1199 and satiro", "JLozoya and hogsett7", "Zaniac18 and Jer13", "NathanR918 and Caullyn"],
+    correct: 0,
+  },
+  {
+    q: "Which two teams remain unbeaten after Week 4?",
+    options: ["Karrrobi and 00sef", "Raymond49 and Whodatjuan", "Caullyn and Jer13", "Raymond49 and Karrrobi"],
+    correct: 1,
+  },
+  {
+    q: "NathanR918 was named Worst Manager in Week 4. What did NathanR918 actually score?",
+    options: ["118.02", "64.74", "90.02", "76.00"],
+    correct: 2,
+  },
+  {
+    q: "Who won the week's narrowest game, a 9.9% margin?",
+    options: ["Karrrobi over hogsett7", "Jer13 over mattware1199", "Whodatjuan over JLozoya", "satiro over Zaniac18"],
+    correct: 0,
+  },
+  {
+    q: "Which two players were swapped in the trade between Zaniac18 and mattware1199?",
+    options: ["Barkley for Nabers", "Gordon for Robinson", "Achane for Hampton", "Gibbs for Walker"],
+    correct: 0,
+  },
+  {
+    q: "Which team has the lowest FAAB balance in the league after Week 4?",
+    options: ["Zaniac18 ($45)", "mattware1199 ($54)", "satiro ($54)", "hogsett7 ($78)"],
+    correct: 0,
+  },
+];
+
+
+NOTES
+---------------------------------------------------------------------
+- Everything else on the site (headlines, risers/fallers, lines, Pick 'Em, Power Rankings, Matchups) pulls
+  live from Sleeper, so it updates by itself. Power Rankings use your formula and will match the PDF.
+- Quick test: these exact blocks were pasted into the current index.html and checked for syntax errors
+  before sending. If the page looks blank after you commit, the usual cause is a missed quote or
+  bracket at the start/end of a block; undo the commit and try again, or ask me for a full index.html.
