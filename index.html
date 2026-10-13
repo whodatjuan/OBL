@@ -432,6 +432,11 @@
 const LEAGUE_ID = "1386160203438751744";
 
 const ARCHIVE = [
+  { title: "The One Bite Report: Week 6 Preview", date: "Oct 13, 2026", file: "one-bite-report-week6-preview.pdf" },
+  { title: "Week 6: Preview", date: "Oct 13, 2026", file: "one-bite-league-week6-preview.pdf" },
+  { title: "The One Bite Report: Week 5 Recap", date: "Oct 13, 2026", file: "one-bite-report-week5-recap.pdf" },
+  { title: "Week 5: Final Recap", date: "Oct 13, 2026", file: "one-bite-league-week5-final-recap.pdf" },
+  { title: "Trade Analyzer: Whodatjuan & hogsett7", date: "Oct 2026", file: "one-bite-league-trade-analyzer-whodatjuan-hogsett7.pdf" },
   { title: "Week 4: Final Recap", date: "Oct 6, 2026", file: "one-bite-league-week4-final-recap.pdf" },
   { title: "The One Bite Report: Week 4 Recap", date: "Oct 6, 2026", file: "one-bite-report-week4-recap.pdf" },
   { title: "Trade Analyzer: Zaniac18 & mattware1199 (Barkley for Nabers)", date: "Oct 5, 2026", file: "one-bite-league-trade-analyzer-zaniac18-mattware1199.pdf" },
@@ -473,30 +478,23 @@ const MAILBAG_EMAIL = "nanogamon@gmail.com";
 // The News tab's hand-written feature article. Update this whenever you want fresh content —
 // just replace headline/byline/paragraphs. Nothing else on the page depends on this.
 const ARTICLE = {
-  headline: "A Perfect 221.02, a Closed Winless Club, and Two Teams Still Unbeaten",
-  byline: "The One Bite Report \u00b7 Week 4 Recap",
+  headline: "201.98 and 188.86: The Highest-Scoring Game of the Year, and Raymond49 Is Still Perfect",
+  byline: "The One Bite Report \u00b7 Week 5 Recap",
   paragraphs: [
-    "Week 4 belonged to 00sef. The lineup it set scored the maximum points possible, 221.02, a new season high by " +
-    "29 points over Raymond49's 192.08 from Week 3. Caullyn's 162.68 was its best score of the year and the " +
-    "fourth-highest of the week, and it still lost by 58. Both teams are 2-2, but Caullyn has now allowed more " +
-    "points than anyone in the league (655.18).",
+    "Zaniac18 beat hogsett7, 201.98 to 188.86, in a 390.84-point game, the highest-scoring matchup of the season. " +
+    "It is the second 200-point score of the year after 00sef's 221.02 in Week 4, and hogsett7's 188.86 is the best " +
+    "score by a losing team so far. D. Maye's 39.46 was the top individual score of the week.",
 
-    "The winless club is officially closed. mattware1199 (174.08) and satiro (153.10) each posted a season high " +
-    "to win their first games, over Jer13 and Zaniac18 respectively. Nobody is 0-4, but five teams are now 1-3, " +
-    "so the bottom of the standings is as crowded as the top is thin.",
+    "Raymond49 improved to 5-0 even though its 112.66 was its lowest total of the season, 52.5 under its Week 1-4 " +
+    "average. It beat Whodatjuan (4-1), who scored 95.44, a season low, with three starters at 1.4 points or less.",
 
-    "At the top, Raymond49 and Whodatjuan are both 4-0. Raymond49 beat NathanR918 by an 82.3% margin, the biggest " +
-    "blowout of the week, while NathanR918 was named Worst Manager for leaving 28 points on the table. " +
-    "Whodatjuan won with 109.54, its lowest score of the year, because JLozoya's 64.74 was the lowest team score " +
-    "of the season so far.",
+    "Jer13 had the biggest margin, 149.24 to 101.74 over satiro (46.7%), behind 37.70 from J. Gibbs. JLozoya " +
+    "bounced from a season-low 64.74 to a 145.40 win, 00sef beat NathanR918 160.48 to 116.20, and Caullyn beat " +
+    "Karrrobi 134.14 to 100.60.",
 
-    "The week's narrowest result went to Karrrobi, who edged hogsett7 by 9.9% and sits alone in third at 3-1 with " +
-    "every dollar of its FAAB still unspent. And the trade market had a big Monday: Zaniac18 and mattware1199 " +
-    "swapped Saquon Barkley (hamstring, expected out at least Week 5) for Malik Nabers (6/112/1 on Sunday), " +
-    "the same weekend both players' stock moved in opposite directions.",
-
-    "On the power rankings, mattware1199 climbs five spots, while JLozoya falls four to last. Check the Power " +
-    "Rankings tab for the full picture.",
+    "Week 6 is a bye-week week (CIN, DET, MIA, MIN). Twelve starting slots across six rosters project at zero, " +
+    "including four on satiro. The marquee game is Whodatjuan against 00sef, and the closest line is Zaniac18 " +
+    "against Caullyn, 133.34 to 136.24. Check the Matchups tab for the lines.",
   ],
 };
 
@@ -504,38 +502,38 @@ const ARTICLE = {
 // Add more over time — there's no limit, and they render in the order listed here.
 const TRIVIA = [
   {
-    q: "Who set the perfect lineup in Week 4 and scored the league's best total, 221.02?",
-    options: ["Raymond49", "00sef", "Caullyn", "mattware1199"],
+    q: "Who scored 201.98 in Week 5, the second 200-point score of the season?",
+    options: ["hogsett7", "Zaniac18", "00sef", "Raymond49"],
     correct: 1,
   },
   {
-    q: "Which two teams earned their first win of the season in Week 4?",
-    options: ["mattware1199 and satiro", "JLozoya and hogsett7", "Zaniac18 and Jer13", "NathanR918 and Caullyn"],
-    correct: 0,
-  },
-  {
-    q: "Which two teams remain unbeaten after Week 4?",
-    options: ["Karrrobi and 00sef", "Raymond49 and Whodatjuan", "Caullyn and Jer13", "Raymond49 and Karrrobi"],
-    correct: 1,
-  },
-  {
-    q: "NathanR918 was named Worst Manager in Week 4. What did NathanR918 actually score?",
-    options: ["118.02", "64.74", "90.02", "76.00"],
+    q: "Which team is the only unbeaten team in the league after Week 5?",
+    options: ["Whodatjuan", "00sef", "Raymond49", "Karrrobi"],
     correct: 2,
   },
   {
-    q: "Who won the week's narrowest game, a 9.9% margin?",
-    options: ["Karrrobi over hogsett7", "Jer13 over mattware1199", "Whodatjuan over JLozoya", "satiro over Zaniac18"],
+    q: "hogsett7's 188.86 in Week 5 was the best score by a losing team this season. Who was on the other side?",
+    options: ["Zaniac18", "Caullyn", "Jer13", "JLozoya"],
     correct: 0,
   },
   {
-    q: "Which two players were swapped in the trade between Zaniac18 and mattware1199?",
-    options: ["Barkley for Nabers", "Gordon for Robinson", "Achane for Hampton", "Gibbs for Walker"],
+    q: "Which game had the biggest margin in Week 5 (46.7%)?",
+    options: ["00sef over NathanR918", "Jer13 over satiro", "JLozoya over mattware1199", "Caullyn over Karrrobi"],
+    correct: 1,
+  },
+  {
+    q: "What did Whodatjuan score in Week 5, its lowest total of the season?",
+    options: ["95.44", "109.54", "101.74", "100.60"],
     correct: 0,
   },
   {
-    q: "Which team has the lowest FAAB balance in the league after Week 4?",
-    options: ["Zaniac18 ($45)", "mattware1199 ($54)", "satiro ($54)", "hogsett7 ($78)"],
+    q: "How many of satiro's starters are on bye in Week 6?",
+    options: ["Two", "Three", "Four", "Five"],
+    correct: 2,
+  },
+  {
+    q: "Which Week 6 game has the closest projected line, a 2.90-point gap?",
+    options: ["Zaniac18 vs. Caullyn", "Whodatjuan vs. 00sef", "JLozoya vs. Jer13", "mattware1199 vs. Raymond49"],
     correct: 0,
   },
 ];
