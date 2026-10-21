@@ -1,0 +1,83 @@
+ONE BITE COMMAND CENTER - WEEK 6 / WEEK 7 SITE UPDATE (Oct 21, 2026)
+
+OPTION A (easiest): upload the new index.html to the repo root in GitHub (Add file > Upload files), then upload these six PDFs to the same place:
+  one-bite-league-week6-final-recap.pdf
+  one-bite-report-week6-recap.pdf
+  one-bite-league-week7-preview.pdf
+  one-bite-report-week7-preview.pdf
+  one-bite-league-trade-analyzer-zaniac18-satiro-4for3.pdf
+  one-bite-league-trade-analyzer-whodatjuan-zaniac18-brown-jacobs.pdf
+  one-bite-league-trade-analyzer-zaniac18-karrrobi-cook.pdf
+
+OPTION B: edit index.html by hand.
+ 1) Paste the ARCHIVE lines right after the line:  const ARCHIVE = [
+ 2) Replace the whole  const ARTICLE = {...};  block with the ARTICLE block.
+ 3) Replace the whole  const TRIVIA = [...];  block with the TRIVIA block.
+
+===== ARCHIVE =====
+  { title: "The One Bite Report: Week 7 Preview", date: "Oct 21, 2026", file: "one-bite-report-week7-preview.pdf" },
+  { title: "Week 7: Preview", date: "Oct 21, 2026", file: "one-bite-league-week7-preview.pdf" },
+  { title: "The One Bite Report: Week 6 Recap", date: "Oct 21, 2026", file: "one-bite-report-week6-recap.pdf" },
+  { title: "Week 6: Final Recap", date: "Oct 21, 2026", file: "one-bite-league-week6-final-recap.pdf" },
+  { title: "Trade Analyzer: Zaniac18 & Karrrobi (Cook for London + Tuten)", date: "Oct 2026", file: "one-bite-league-trade-analyzer-zaniac18-karrrobi-cook.pdf" },
+  { title: "Trade Analyzer: Whodatjuan & Zaniac18 (Brown for Jacobs)", date: "Oct 2026", file: "one-bite-league-trade-analyzer-whodatjuan-zaniac18-brown-jacobs.pdf" },
+  { title: "Trade Analyzer: Zaniac18 & satiro (4 for 3)", date: "Oct 2026", file: "one-bite-league-trade-analyzer-zaniac18-satiro-4for3.pdf" },
+
+const ARTICLE = {
+  headline: "Raymond49's Perfect Start Ends by 2.64 Points as Whodatjuan Catches Up at 5-1",
+  byline: "The One Bite Report \u00b7 Week 6 Recap",
+  paragraphs: [
+    "mattware1199 beat Raymond49, 120.40 to 117.76, a 2.64-point margin (2.2%), to end the league's only unbeaten " +
+    "run. Raymond49 is 5-1, and its kicker and defense scored 4.00 each. Whodatjuan joined it at 5-1 by beating " +
+    "00sef, 152.46 to 106.50. That is the highest score of the week and 57.0 above Whodatjuan's season-low 95.44 from Week 5.",
+
+    "Sleeper named Zaniac18 the best manager: it set the perfect possible lineup and scored the maximum, 125.94, to beat " +
+    "Caullyn. 00sef was the worst manager, with 21.80 points left on its bench (128.30 available, 106.50 scored) and a " +
+    "24% miss against its 140.73 projection. Jer13 was the overachiever, beating its 110.86 projection by 31% in a " +
+    "145.58 to 88.50 win over JLozoya, the biggest margin of the week (64.5%).",
+
+    "NathanR918 (137.64) and Karrrobi (130.80) both posted season highs in a 6.84-point game, hogsett7 beat satiro " +
+    "121.00 to 88.72, and Caullyn fell to a season-low 115.34. Five teams are now 3-3, and satiro is the only 1-5 team.",
+
+    "Week 7 opens Thursday with NE at CHI. Eight starting slots on five rosters project at zero, including three on " +
+    "NathanR918. The closest line is mattware1199 against 00sef, 133.97 to 134.64 and 50/50, and the biggest is Zaniac18 " +
+    "over NathanR918 by 40.36. Check the Matchups tab for the lines.",
+  ],
+};
+const TRIVIA = [
+  {
+    q: "Who beat Raymond49 by 2.64 points in Week 6 to end its unbeaten start?",
+    options: ["Jer13", "mattware1199", "Caullyn", "hogsett7"],
+    correct: 1,
+  },
+  {
+    q: "Who had the highest score of Week 6 (152.46)?",
+    options: ["Whodatjuan", "Jer13", "NathanR918", "Zaniac18"],
+    correct: 0,
+  },
+  {
+    q: "Which team set the perfect possible lineup in Week 6 (125.94), per Sleeper?",
+    options: ["Raymond49", "Zaniac18", "Karrrobi", "hogsett7"],
+    correct: 1,
+  },
+  {
+    q: "00sef scored 106.50 in Week 6. How many points were left on its bench?",
+    options: ["9.50", "12.40", "21.80", "28.30"],
+    correct: 2,
+  },
+  {
+    q: "Which game had the biggest margin in Week 6 (64.5%)?",
+    options: ["Jer13 over JLozoya", "hogsett7 over satiro", "Whodatjuan over 00sef", "NathanR918 over Karrrobi"],
+    correct: 0,
+  },
+  {
+    q: "Which team is the only 1-5 team after Week 6?",
+    options: ["mattware1199", "JLozoya", "hogsett7", "satiro"],
+    correct: 3,
+  },
+  {
+    q: "Which Week 7 game has the closest line, a 0.67-point gap?",
+    options: ["Whodatjuan vs. Karrrobi", "mattware1199 vs. 00sef", "Caullyn vs. satiro", "Raymond49 vs. JLozoya"],
+    correct: 1,
+  },
+];

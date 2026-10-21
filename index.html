@@ -432,6 +432,13 @@
 const LEAGUE_ID = "1386160203438751744";
 
 const ARCHIVE = [
+  { title: "The One Bite Report: Week 7 Preview", date: "Oct 21, 2026", file: "one-bite-report-week7-preview.pdf" },
+  { title: "Week 7: Preview", date: "Oct 21, 2026", file: "one-bite-league-week7-preview.pdf" },
+  { title: "The One Bite Report: Week 6 Recap", date: "Oct 21, 2026", file: "one-bite-report-week6-recap.pdf" },
+  { title: "Week 6: Final Recap", date: "Oct 21, 2026", file: "one-bite-league-week6-final-recap.pdf" },
+  { title: "Trade Analyzer: Zaniac18 & Karrrobi (Cook for London + Tuten)", date: "Oct 2026", file: "one-bite-league-trade-analyzer-zaniac18-karrrobi-cook.pdf" },
+  { title: "Trade Analyzer: Whodatjuan & Zaniac18 (Brown for Jacobs)", date: "Oct 2026", file: "one-bite-league-trade-analyzer-whodatjuan-zaniac18-brown-jacobs.pdf" },
+  { title: "Trade Analyzer: Zaniac18 & satiro (4 for 3)", date: "Oct 2026", file: "one-bite-league-trade-analyzer-zaniac18-satiro-4for3.pdf" },
   { title: "The One Bite Report: Week 6 Preview", date: "Oct 13, 2026", file: "one-bite-report-week6-preview.pdf" },
   { title: "Week 6: Preview", date: "Oct 13, 2026", file: "one-bite-league-week6-preview.pdf" },
   { title: "The One Bite Report: Week 5 Recap", date: "Oct 13, 2026", file: "one-bite-report-week5-recap.pdf" },
@@ -478,23 +485,24 @@ const MAILBAG_EMAIL = "nanogamon@gmail.com";
 // The News tab's hand-written feature article. Update this whenever you want fresh content —
 // just replace headline/byline/paragraphs. Nothing else on the page depends on this.
 const ARTICLE = {
-  headline: "201.98 and 188.86: The Highest-Scoring Game of the Year, and Raymond49 Is Still Perfect",
-  byline: "The One Bite Report \u00b7 Week 5 Recap",
+  headline: "Raymond49's Perfect Start Ends by 2.64 Points as Whodatjuan Catches Up at 5-1",
+  byline: "The One Bite Report \u00b7 Week 6 Recap",
   paragraphs: [
-    "Zaniac18 beat hogsett7, 201.98 to 188.86, in a 390.84-point game, the highest-scoring matchup of the season. " +
-    "It is the second 200-point score of the year after 00sef's 221.02 in Week 4, and hogsett7's 188.86 is the best " +
-    "score by a losing team so far. D. Maye's 39.46 was the top individual score of the week.",
+    "mattware1199 beat Raymond49, 120.40 to 117.76, a 2.64-point margin (2.2%), to end the league's only unbeaten " +
+    "run. Raymond49 is 5-1, and its kicker and defense scored 4.00 each. Whodatjuan joined it at 5-1 by beating " +
+    "00sef, 152.46 to 106.50. That is the highest score of the week and 57.0 above Whodatjuan's season-low 95.44 from Week 5.",
 
-    "Raymond49 improved to 5-0 even though its 112.66 was its lowest total of the season, 52.5 under its Week 1-4 " +
-    "average. It beat Whodatjuan (4-1), who scored 95.44, a season low, with three starters at 1.4 points or less.",
+    "Sleeper named Zaniac18 the best manager: it set the perfect possible lineup and scored the maximum, 125.94, to beat " +
+    "Caullyn. 00sef was the worst manager, with 21.80 points left on its bench (128.30 available, 106.50 scored) and a " +
+    "24% miss against its 140.73 projection. Jer13 was the overachiever, beating its 110.86 projection by 31% in a " +
+    "145.58 to 88.50 win over JLozoya, the biggest margin of the week (64.5%).",
 
-    "Jer13 had the biggest margin, 149.24 to 101.74 over satiro (46.7%), behind 37.70 from J. Gibbs. JLozoya " +
-    "bounced from a season-low 64.74 to a 145.40 win, 00sef beat NathanR918 160.48 to 116.20, and Caullyn beat " +
-    "Karrrobi 134.14 to 100.60.",
+    "NathanR918 (137.64) and Karrrobi (130.80) both posted season highs in a 6.84-point game, hogsett7 beat satiro " +
+    "121.00 to 88.72, and Caullyn fell to a season-low 115.34. Five teams are now 3-3, and satiro is the only 1-5 team.",
 
-    "Week 6 is a bye-week week (CIN, DET, MIA, MIN). Twelve starting slots across six rosters project at zero, " +
-    "including four on satiro. The marquee game is Whodatjuan against 00sef, and the closest line is Zaniac18 " +
-    "against Caullyn, 133.34 to 136.24. Check the Matchups tab for the lines.",
+    "Week 7 opens Thursday with NE at CHI. Eight starting slots on five rosters project at zero, including three on " +
+    "NathanR918. The closest line is mattware1199 against 00sef, 133.97 to 134.64 and 50/50, and the biggest is Zaniac18 " +
+    "over NathanR918 by 40.36. Check the Matchups tab for the lines.",
   ],
 };
 
@@ -502,39 +510,39 @@ const ARTICLE = {
 // Add more over time — there's no limit, and they render in the order listed here.
 const TRIVIA = [
   {
-    q: "Who scored 201.98 in Week 5, the second 200-point score of the season?",
-    options: ["hogsett7", "Zaniac18", "00sef", "Raymond49"],
+    q: "Who beat Raymond49 by 2.64 points in Week 6 to end its unbeaten start?",
+    options: ["Jer13", "mattware1199", "Caullyn", "hogsett7"],
     correct: 1,
   },
   {
-    q: "Which team is the only unbeaten team in the league after Week 5?",
-    options: ["Whodatjuan", "00sef", "Raymond49", "Karrrobi"],
-    correct: 2,
-  },
-  {
-    q: "hogsett7's 188.86 in Week 5 was the best score by a losing team this season. Who was on the other side?",
-    options: ["Zaniac18", "Caullyn", "Jer13", "JLozoya"],
+    q: "Who had the highest score of Week 6 (152.46)?",
+    options: ["Whodatjuan", "Jer13", "NathanR918", "Zaniac18"],
     correct: 0,
   },
   {
-    q: "Which game had the biggest margin in Week 5 (46.7%)?",
-    options: ["00sef over NathanR918", "Jer13 over satiro", "JLozoya over mattware1199", "Caullyn over Karrrobi"],
+    q: "Which team set the perfect possible lineup in Week 6 (125.94), per Sleeper?",
+    options: ["Raymond49", "Zaniac18", "Karrrobi", "hogsett7"],
     correct: 1,
   },
   {
-    q: "What did Whodatjuan score in Week 5, its lowest total of the season?",
-    options: ["95.44", "109.54", "101.74", "100.60"],
-    correct: 0,
-  },
-  {
-    q: "How many of satiro's starters are on bye in Week 6?",
-    options: ["Two", "Three", "Four", "Five"],
+    q: "00sef scored 106.50 in Week 6. How many points were left on its bench?",
+    options: ["9.50", "12.40", "21.80", "28.30"],
     correct: 2,
   },
   {
-    q: "Which Week 6 game has the closest projected line, a 2.90-point gap?",
-    options: ["Zaniac18 vs. Caullyn", "Whodatjuan vs. 00sef", "JLozoya vs. Jer13", "mattware1199 vs. Raymond49"],
+    q: "Which game had the biggest margin in Week 6 (64.5%)?",
+    options: ["Jer13 over JLozoya", "hogsett7 over satiro", "Whodatjuan over 00sef", "NathanR918 over Karrrobi"],
     correct: 0,
+  },
+  {
+    q: "Which team is the only 1-5 team after Week 6?",
+    options: ["mattware1199", "JLozoya", "hogsett7", "satiro"],
+    correct: 3,
+  },
+  {
+    q: "Which Week 7 game has the closest line, a 0.67-point gap?",
+    options: ["Whodatjuan vs. Karrrobi", "mattware1199 vs. 00sef", "Caullyn vs. satiro", "Raymond49 vs. JLozoya"],
+    correct: 1,
   },
 ];
 
