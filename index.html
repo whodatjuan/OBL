@@ -432,6 +432,8 @@
 const LEAGUE_ID = "1386160203438751744";
 
 const ARCHIVE = [
+  { title: "The One Bite Report: Week 7 Recap", date: "Oct 27, 2026", file: "one-bite-report-week7-recap.pdf" },
+  { title: "Week 7: Final Recap", date: "Oct 27, 2026", file: "one-bite-league-week7-final-recap.pdf" },
   { title: "The One Bite Report: Week 7 Preview", date: "Oct 21, 2026", file: "one-bite-report-week7-preview.pdf" },
   { title: "Week 7: Preview", date: "Oct 21, 2026", file: "one-bite-league-week7-preview.pdf" },
   { title: "The One Bite Report: Week 6 Recap", date: "Oct 21, 2026", file: "one-bite-report-week6-recap.pdf" },
@@ -485,24 +487,23 @@ const MAILBAG_EMAIL = "nanogamon@gmail.com";
 // The News tab's hand-written feature article. Update this whenever you want fresh content —
 // just replace headline/byline/paragraphs. Nothing else on the page depends on this.
 const ARTICLE = {
-  headline: "Raymond49's Perfect Start Ends by 2.64 Points as Whodatjuan Catches Up at 5-1",
-  byline: "The One Bite Report \u00b7 Week 6 Recap",
+  headline: "Zaniac18 Sets the Perfect Lineup and Still Loses; Whodatjuan and Raymond49 Stay 6-1",
+  byline: "The One Bite Report \u00b7 Week 7 Recap",
   paragraphs: [
-    "mattware1199 beat Raymond49, 120.40 to 117.76, a 2.64-point margin (2.2%), to end the league's only unbeaten " +
-    "run. Raymond49 is 5-1, and its kicker and defense scored 4.00 each. Whodatjuan joined it at 5-1 by beating " +
-    "00sef, 152.46 to 106.50. That is the highest score of the week and 57.0 above Whodatjuan's season-low 95.44 from Week 5.",
+    "Sleeper named Zaniac18 the best manager of Week 7 for setting the perfect possible lineup and scoring the maximum, " +
+    "125.52, and it still lost to NathanR918, 130.28, by 4.76 points. NathanR918 started the QB of the week, J. Burrow " +
+    "(28.88 on four touchdowns), and moved to 4-3.",
 
-    "Sleeper named Zaniac18 the best manager: it set the perfect possible lineup and scored the maximum, 125.94, to beat " +
-    "Caullyn. 00sef was the worst manager, with 21.80 points left on its bench (128.30 available, 106.50 scored) and a " +
-    "24% miss against its 140.73 projection. Jer13 was the overachiever, beating its 110.86 projection by 31% in a " +
-    "145.58 to 88.50 win over JLozoya, the biggest margin of the week (64.5%).",
+    "Whodatjuan was the worst manager, scoring 83% of a 139.68 perfect lineup (24.36 points left on its bench), and it " +
+    "still beat Karrrobi, 115.32 to 100.92, to stay 6-1. J. Smith-Njigba's 31.30 was the WR of the week. Raymond49 held off " +
+    "JLozoya 134.52 to 126.02 and is also 6-1.",
 
-    "NathanR918 (137.64) and Karrrobi (130.80) both posted season highs in a 6.84-point game, hogsett7 beat satiro " +
-    "121.00 to 88.72, and Caullyn fell to a season-low 115.34. Five teams are now 3-3, and satiro is the only 1-5 team.",
+    "satiro edged Caullyn by 0.50 points, 139.08 to 138.58, behind T. Pollard's 36.50, the RB of the week, and beat its " +
+    "119.97 projection by 16%. mattware1199 had the high score of the week, 142.52, to beat 00sef, and hogsett7 beat Jer13 " +
+    "125.54 to 111.52. Karrrobi's 100.92 was the lowest score.",
 
-    "Week 7 opens Thursday with NE at CHI. Eight starting slots on five rosters project at zero, including three on " +
-    "NathanR918. The closest line is mattware1199 against 00sef, 133.97 to 134.64 and 50/50, and the biggest is Zaniac18 " +
-    "over NathanR918 by 40.36. Check the Matchups tab for the lines.",
+    "Six teams are now 3-4 (00sef, Caullyn, Karrrobi, Zaniac18, hogsett7, mattware1199), and JLozoya and satiro are " +
+    "2-5. The next preview follows after the waiver run. Check the Matchups tab for the current lines.",
   ],
 };
 
@@ -510,39 +511,39 @@ const ARTICLE = {
 // Add more over time — there's no limit, and they render in the order listed here.
 const TRIVIA = [
   {
-    q: "Who beat Raymond49 by 2.64 points in Week 6 to end its unbeaten start?",
-    options: ["Jer13", "mattware1199", "Caullyn", "hogsett7"],
-    correct: 1,
-  },
-  {
-    q: "Who had the highest score of Week 6 (152.46)?",
-    options: ["Whodatjuan", "Jer13", "NathanR918", "Zaniac18"],
-    correct: 0,
-  },
-  {
-    q: "Which team set the perfect possible lineup in Week 6 (125.94), per Sleeper?",
-    options: ["Raymond49", "Zaniac18", "Karrrobi", "hogsett7"],
-    correct: 1,
-  },
-  {
-    q: "00sef scored 106.50 in Week 6. How many points were left on its bench?",
-    options: ["9.50", "12.40", "21.80", "28.30"],
+    q: "Which team set the perfect possible lineup in Week 7 (125.52) and still lost?",
+    options: ["Whodatjuan", "Raymond49", "Zaniac18", "satiro"],
     correct: 2,
   },
   {
-    q: "Which game had the biggest margin in Week 6 (64.5%)?",
-    options: ["Jer13 over JLozoya", "hogsett7 over satiro", "Whodatjuan over 00sef", "NathanR918 over Karrrobi"],
+    q: "Who had the highest score of Week 7 (142.52)?",
+    options: ["00sef", "mattware1199", "satiro", "Caullyn"],
+    correct: 1,
+  },
+  {
+    q: "satiro won the narrowest game of the week by 0.50 points. Who was on the other side?",
+    options: ["Caullyn", "Jer13", "Karrrobi", "NathanR918"],
     correct: 0,
   },
   {
-    q: "Which team is the only 1-5 team after Week 6?",
-    options: ["mattware1199", "JLozoya", "hogsett7", "satiro"],
-    correct: 3,
+    q: "Sleeper's worst manager of Week 7 left how many points on its bench?",
+    options: ["8.90", "12.40", "24.36", "31.10"],
+    correct: 2,
   },
   {
-    q: "Which Week 7 game has the closest line, a 0.67-point gap?",
-    options: ["Whodatjuan vs. Karrrobi", "mattware1199 vs. 00sef", "Caullyn vs. satiro", "Raymond49 vs. JLozoya"],
+    q: "Who was the RB of the week with 36.50 points and three touchdowns?",
+    options: ["J. Gibbs", "T. Pollard", "A. Jeanty", "B. Irving"],
     correct: 1,
+  },
+  {
+    q: "Which two teams are 6-1 after Week 7?",
+    options: ["Raymond49 and Whodatjuan", "Raymond49 and 00sef", "Whodatjuan and Jer13", "00sef and NathanR918"],
+    correct: 0,
+  },
+  {
+    q: "How many teams are 3-4 after Week 7?",
+    options: ["Four", "Five", "Six", "Seven"],
+    correct: 2,
   },
 ];
 

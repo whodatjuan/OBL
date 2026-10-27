@@ -1,0 +1,72 @@
+ONE BITE COMMAND CENTER - WEEK 7 RECAP SITE UPDATE (Oct 27, 2026)
+
+OPTION A (easiest): upload the new index.html to the repo root in GitHub (Add file > Upload files), then upload these two PDFs to the same place:
+  one-bite-league-week7-final-recap.pdf
+  one-bite-report-week7-recap.pdf
+
+OPTION B: edit index.html by hand.
+ 1) Paste the ARCHIVE lines right after the line:  const ARCHIVE = [
+ 2) Replace the whole  const ARTICLE = {...};  block with the ARTICLE block.
+ 3) Replace the whole  const TRIVIA = [...];  block with the TRIVIA block.
+
+===== ARCHIVE / ARTICLE / TRIVIA =====
+  { title: "The One Bite Report: Week 7 Recap", date: "Oct 27, 2026", file: "one-bite-report-week7-recap.pdf" },
+  { title: "Week 7: Final Recap", date: "Oct 27, 2026", file: "one-bite-league-week7-final-recap.pdf" },
+
+const ARTICLE = {
+  headline: "Zaniac18 Sets the Perfect Lineup and Still Loses; Whodatjuan and Raymond49 Stay 6-1",
+  byline: "The One Bite Report \u00b7 Week 7 Recap",
+  paragraphs: [
+    "Sleeper named Zaniac18 the best manager of Week 7 for setting the perfect possible lineup and scoring the maximum, " +
+    "125.52, and it still lost to NathanR918, 130.28, by 4.76 points. NathanR918 started the QB of the week, J. Burrow " +
+    "(28.88 on four touchdowns), and moved to 4-3.",
+
+    "Whodatjuan was the worst manager, scoring 83% of a 139.68 perfect lineup (24.36 points left on its bench), and it " +
+    "still beat Karrrobi, 115.32 to 100.92, to stay 6-1. J. Smith-Njigba's 31.30 was the WR of the week. Raymond49 held off " +
+    "JLozoya 134.52 to 126.02 and is also 6-1.",
+
+    "satiro edged Caullyn by 0.50 points, 139.08 to 138.58, behind T. Pollard's 36.50, the RB of the week, and beat its " +
+    "119.97 projection by 16%. mattware1199 had the high score of the week, 142.52, to beat 00sef, and hogsett7 beat Jer13 " +
+    "125.54 to 111.52. Karrrobi's 100.92 was the lowest score.",
+
+    "Six teams are now 3-4 (00sef, Caullyn, Karrrobi, Zaniac18, hogsett7, mattware1199), and JLozoya and satiro are " +
+    "2-5. The next preview follows after the waiver run. Check the Matchups tab for the current lines.",
+  ],
+};
+const TRIVIA = [
+  {
+    q: "Which team set the perfect possible lineup in Week 7 (125.52) and still lost?",
+    options: ["Whodatjuan", "Raymond49", "Zaniac18", "satiro"],
+    correct: 2,
+  },
+  {
+    q: "Who had the highest score of Week 7 (142.52)?",
+    options: ["00sef", "mattware1199", "satiro", "Caullyn"],
+    correct: 1,
+  },
+  {
+    q: "satiro won the narrowest game of the week by 0.50 points. Who was on the other side?",
+    options: ["Caullyn", "Jer13", "Karrrobi", "NathanR918"],
+    correct: 0,
+  },
+  {
+    q: "Sleeper's worst manager of Week 7 left how many points on its bench?",
+    options: ["8.90", "12.40", "24.36", "31.10"],
+    correct: 2,
+  },
+  {
+    q: "Who was the RB of the week with 36.50 points and three touchdowns?",
+    options: ["J. Gibbs", "T. Pollard", "A. Jeanty", "B. Irving"],
+    correct: 1,
+  },
+  {
+    q: "Which two teams are 6-1 after Week 7?",
+    options: ["Raymond49 and Whodatjuan", "Raymond49 and 00sef", "Whodatjuan and Jer13", "00sef and NathanR918"],
+    correct: 0,
+  },
+  {
+    q: "How many teams are 3-4 after Week 7?",
+    options: ["Four", "Five", "Six", "Seven"],
+    correct: 2,
+  },
+];
