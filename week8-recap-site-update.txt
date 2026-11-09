@@ -1,0 +1,73 @@
+WEEK 8 RECAP - SITE UPDATE (Nov 9, 2026)
+
+UPLOAD to github.com/whodatjuan/OBL (Add file > Upload files):
+  1. index.html  (full replacement, tested)
+  2. one-bite-report-week8-recap.pdf
+  3. one-bite-league-week8-final-recap.pdf
+
+OR paste these blocks into index.html yourself:
+  - ARCHIVE: add the two lines directly under "const ARCHIVE = [".
+  - ARTICLE: replace the whole "const ARTICLE = {...};" block.
+  - TRIVIA: replace the whole "const TRIVIA = [...];" block.
+
+==================================================
+  { title: "The One Bite Report: Week 8 Recap", date: "Nov 9, 2026", file: "one-bite-report-week8-recap.pdf" },
+  { title: "Week 8: Final Recap", date: "Nov 9, 2026", file: "one-bite-league-week8-final-recap.pdf" },
+
+const ARTICLE = {
+  headline: "00sef Drops 172.76 as Raymond49 and Whodatjuan Stay 7-1; Karrrobi's QB Scores Zero",
+  byline: "The One Bite Report \u00b7 Week 8 Recap",
+  paragraphs: [
+    "00sef posted the highest score of Week 8, 172.76, and beat JLozoya by 68.68 points to get back to 4-4. Whodatjuan " +
+    "(153.56 over Zaniac18) and hogsett7 (151.86 over Caullyn) also topped 150, and Raymond49 survived at 102.00, a season low, " +
+    "to beat Jer13 (87.54, also a season low). Raymond49 and Whodatjuan are both 7-1.",
+
+    "mattware1199 set the perfect possible lineup, 120.78, for a third straight win over Karrrobi, whose QB L. Jackson went " +
+    "0 of 1 and scored 0.00 as Karrrobi missed its 120.11 projection by 23%. J. Burrow was the QB of the week for NathanR918: " +
+    "42.48 on 462 yards and five touchdowns in a 134.28 to 118.90 win over satiro.",
+
+    "Zaniac18 was Sleeper's worst manager, scoring 101.86 and leaving 32.68 points on its bench. Whodatjuan's D. Swift scored " +
+    "27.90 on three touchdowns, and hogsett7 beat its projection by 26%.",
+
+    "Five waiver claims were processed: satiro paid $11 for E. Johnson, Whodatjuan claimed S. Darnold for $8 and the Bears " +
+    "defense for $1, Caullyn took J. Johnson for $1 and Jer13 the Buccaneers defense for $1. The Week 9 preview is " +
+    "pending. Check the Matchups tab for the current lines.",
+  ],
+};
+const TRIVIA = [
+  {
+    q: "Who had the highest score of Week 8 (172.76)?",
+    options: ["Whodatjuan", "00sef", "hogsett7", "NathanR918"],
+    correct: 1,
+  },
+  {
+    q: "Which team set the perfect possible lineup in Week 8 (120.78)?",
+    options: ["mattware1199", "Raymond49", "Zaniac18", "Karrrobi"],
+    correct: 0,
+  },
+  {
+    q: "Karrrobi's QB L. Jackson scored how many points in Week 8?",
+    options: ["0.00", "4.46", "7.60", "12.00"],
+    correct: 0,
+  },
+  {
+    q: "J. Burrow was the QB of the week for NathanR918. How many points did he score?",
+    options: ["28.88", "36.10", "42.48", "47.00"],
+    correct: 2,
+  },
+  {
+    q: "Sleeper's worst manager of Week 8 left how many points on its bench?",
+    options: ["14.30", "24.36", "32.68", "41.00"],
+    correct: 2,
+  },
+  {
+    q: "Who spent the biggest bid of the Week 8 waiver run, $11?",
+    options: ["Whodatjuan", "Caullyn", "Jer13", "satiro"],
+    correct: 3,
+  },
+  {
+    q: "Which two teams are 7-1 after Week 8?",
+    options: ["Raymond49 and Whodatjuan", "Raymond49 and 00sef", "Whodatjuan and NathanR918", "00sef and hogsett7"],
+    correct: 0,
+  },
+];
