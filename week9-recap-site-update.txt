@@ -1,0 +1,75 @@
+WEEK 9 RECAP - SITE UPDATE (Nov 13, 2026)
+
+UPLOAD to github.com/whodatjuan/OBL (Add file > Upload files):
+  1. index.html  (full replacement)
+  2. one-bite-report-week9-recap.pdf
+  3. one-bite-league-week9-final-recap.pdf
+  4. one-bite-league-trade-analyzer-zaniac18-hogsett7-cousins.pdf
+
+OR paste these blocks into index.html yourself:
+  - ARCHIVE: add the three lines directly under "const ARCHIVE = [".
+  - ARTICLE: replace the whole "const ARTICLE = {...};" block.
+  - TRIVIA: replace the whole "const TRIVIA = [...];" block.
+
+==================================================
+  { title: "The One Bite Report: Week 9 Recap", date: "Nov 13, 2026", file: "one-bite-report-week9-recap.pdf" },
+  { title: "Week 9: Final Recap", date: "Nov 13, 2026", file: "one-bite-league-week9-final-recap.pdf" },
+  { title: "Trade Analyzer: Zaniac18 and hogsett7 (Cousins for Young + Robinson)", date: "Nov 13, 2026", file: "one-bite-league-trade-analyzer-zaniac18-hogsett7-cousins.pdf" },
+
+const ARTICLE = {
+  headline: "Whodatjuan Hits 8-1 as 00sef Edges Raymond49 and Takes the Top Spot; Zaniac18 and hogsett7 Trade QBs",
+  byline: "The One Bite Report \u00b7 Week 9 Recap",
+  paragraphs: [
+    "Whodatjuan had the highest score of Week 9, 149.02, and beat satiro by 62.42 points to improve to 8-1, even though its QB, " +
+    "M. Willis, scored 4.82. K. Walker III's 36.30 was the RB of the week. 00sef beat Raymond49 144.36 to 133.38, the closest game " +
+    "of the week, and moved to No. 1 in the power rankings. Raymond49 was Sleeper's best manager at 99% of a perfect lineup and is 7-2.",
+
+    "JLozoya beat its projection by 15% with 137.76 against Karrrobi, whose 78.16 was a new season low. Jer13 was the worst manager, " +
+    "scoring 88.00 against Caullyn's 129.08, and mattware1199 won a fourth straight game while C.J. Stroud scored 36.36 on its bench. " +
+    "hogsett7 beat NathanR918 134.16 to 105.94.",
+
+    "Seven waiver claims were processed for $47. Raymond49 spent $25 on RB C. Kiner and WR C. Sutton, Whodatjuan made three claims " +
+    "($11) and mattware1199 spent $10 on RB K. Johnson. On Nov. 10, Zaniac18 received QB Kirk Cousins from hogsett7 for Bryce Young and " +
+    "Wan'Dale Robinson; the trade report leans hogsett7 by about 1.4x on rest-of-season value.",
+
+    "Whodatjuan leads at 8-1 with Raymond49 at 7-2, four teams are 5-4 (00sef, hogsett7, NathanR918, mattware1199), and satiro is 2-7. " +
+    "Check the Matchups tab for the current lines.",
+  ],
+};
+const TRIVIA = [
+  {
+    q: "Who had the highest score of Week 9 (149.02)?",
+    options: ["00sef", "Whodatjuan", "JLozoya", "hogsett7"],
+    correct: 1,
+  },
+  {
+    q: "Which team scored a new season low of 78.16?",
+    options: ["satiro", "Jer13", "Karrrobi", "Zaniac18"],
+    correct: 2,
+  },
+  {
+    q: "Raymond49 set 99% of a perfect lineup and still lost. Who beat it?",
+    options: ["00sef", "Whodatjuan", "mattware1199", "Caullyn"],
+    correct: 0,
+  },
+  {
+    q: "Sleeper's worst manager of Week 9 scored 88.00. Who was it?",
+    options: ["Jer13", "satiro", "Karrrobi", "Zaniac18"],
+    correct: 0,
+  },
+  {
+    q: "Which QB scored 36.36 on mattware1199's bench?",
+    options: ["J. Burrow", "C.J. Stroud", "B. Purdy", "D. Maye"],
+    correct: 1,
+  },
+  {
+    q: "Who did Zaniac18 receive in the Nov. 10 trade with hogsett7?",
+    options: ["Bryce Young", "Wan'Dale Robinson", "Kirk Cousins", "Malik Willis"],
+    correct: 2,
+  },
+  {
+    q: "How many teams are 5-4 after Week 9?",
+    options: ["Two", "Three", "Four", "Five"],
+    correct: 2,
+  },
+];

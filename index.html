@@ -432,6 +432,9 @@
 const LEAGUE_ID = "1386160203438751744";
 
 const ARCHIVE = [
+  { title: "The One Bite Report: Week 9 Recap", date: "Nov 13, 2026", file: "one-bite-report-week9-recap.pdf" },
+  { title: "Week 9: Final Recap", date: "Nov 13, 2026", file: "one-bite-league-week9-final-recap.pdf" },
+  { title: "Trade Analyzer: Zaniac18 and hogsett7 (Cousins for Young + Robinson)", date: "Nov 13, 2026", file: "one-bite-league-trade-analyzer-zaniac18-hogsett7-cousins.pdf" },
   { title: "The One Bite Report: Week 8 Recap", date: "Nov 9, 2026", file: "one-bite-report-week8-recap.pdf" },
   { title: "Week 8: Final Recap", date: "Nov 9, 2026", file: "one-bite-league-week8-final-recap.pdf" },
   { title: "The One Bite Report: Week 7 Recap", date: "Oct 27, 2026", file: "one-bite-report-week7-recap.pdf" },
@@ -489,23 +492,23 @@ const MAILBAG_EMAIL = "nanogamon@gmail.com";
 // The News tab's hand-written feature article. Update this whenever you want fresh content —
 // just replace headline/byline/paragraphs. Nothing else on the page depends on this.
 const ARTICLE = {
-  headline: "00sef Drops 172.76 as Raymond49 and Whodatjuan Stay 7-1; Karrrobi's QB Scores Zero",
-  byline: "The One Bite Report \u00b7 Week 8 Recap",
+  headline: "Whodatjuan Hits 8-1 as 00sef Edges Raymond49 and Takes the Top Spot; Zaniac18 and hogsett7 Trade QBs",
+  byline: "The One Bite Report \u00b7 Week 9 Recap",
   paragraphs: [
-    "00sef posted the highest score of Week 8, 172.76, and beat JLozoya by 68.68 points to get back to 4-4. Whodatjuan " +
-    "(153.56 over Zaniac18) and hogsett7 (151.86 over Caullyn) also topped 150, and Raymond49 survived at 102.00, a season low, " +
-    "to beat Jer13 (87.54, also a season low). Raymond49 and Whodatjuan are both 7-1.",
+    "Whodatjuan had the highest score of Week 9, 149.02, and beat satiro by 62.42 points to improve to 8-1, even though its QB, " +
+    "M. Willis, scored 4.82. K. Walker III's 36.30 was the RB of the week. 00sef beat Raymond49 144.36 to 133.38, the closest game " +
+    "of the week, and moved to No. 1 in the power rankings. Raymond49 was Sleeper's best manager at 99% of a perfect lineup and is 7-2.",
 
-    "mattware1199 set the perfect possible lineup, 120.78, for a third straight win over Karrrobi, whose QB L. Jackson went " +
-    "0 of 1 and scored 0.00 as Karrrobi missed its 120.11 projection by 23%. J. Burrow was the QB of the week for NathanR918: " +
-    "42.48 on 462 yards and five touchdowns in a 134.28 to 118.90 win over satiro.",
+    "JLozoya beat its projection by 15% with 137.76 against Karrrobi, whose 78.16 was a new season low. Jer13 was the worst manager, " +
+    "scoring 88.00 against Caullyn's 129.08, and mattware1199 won a fourth straight game while C.J. Stroud scored 36.36 on its bench. " +
+    "hogsett7 beat NathanR918 134.16 to 105.94.",
 
-    "Zaniac18 was Sleeper's worst manager, scoring 101.86 and leaving 32.68 points on its bench. Whodatjuan's D. Swift scored " +
-    "27.90 on three touchdowns, and hogsett7 beat its projection by 26%.",
+    "Seven waiver claims were processed for $47. Raymond49 spent $25 on RB C. Kiner and WR C. Sutton, Whodatjuan made three claims " +
+    "($11) and mattware1199 spent $10 on RB K. Johnson. On Nov. 10, Zaniac18 received QB Kirk Cousins from hogsett7 for Bryce Young and " +
+    "Wan'Dale Robinson; the trade report leans hogsett7 by about 1.4x on rest-of-season value.",
 
-    "Five waiver claims were processed: satiro paid $11 for E. Johnson, Whodatjuan claimed S. Darnold for $8 and the Bears " +
-    "defense for $1, Caullyn took J. Johnson for $1 and Jer13 the Buccaneers defense for $1. The Week 9 preview is " +
-    "pending. Check the Matchups tab for the current lines.",
+    "Whodatjuan leads at 8-1 with Raymond49 at 7-2, four teams are 5-4 (00sef, hogsett7, NathanR918, mattware1199), and satiro is 2-7. " +
+    "Check the Matchups tab for the current lines.",
   ],
 };
 
@@ -513,39 +516,39 @@ const ARTICLE = {
 // Add more over time — there's no limit, and they render in the order listed here.
 const TRIVIA = [
   {
-    q: "Who had the highest score of Week 8 (172.76)?",
-    options: ["Whodatjuan", "00sef", "hogsett7", "NathanR918"],
+    q: "Who had the highest score of Week 9 (149.02)?",
+    options: ["00sef", "Whodatjuan", "JLozoya", "hogsett7"],
     correct: 1,
   },
   {
-    q: "Which team set the perfect possible lineup in Week 8 (120.78)?",
-    options: ["mattware1199", "Raymond49", "Zaniac18", "Karrrobi"],
-    correct: 0,
-  },
-  {
-    q: "Karrrobi's QB L. Jackson scored how many points in Week 8?",
-    options: ["0.00", "4.46", "7.60", "12.00"],
-    correct: 0,
-  },
-  {
-    q: "J. Burrow was the QB of the week for NathanR918. How many points did he score?",
-    options: ["28.88", "36.10", "42.48", "47.00"],
+    q: "Which team scored a new season low of 78.16?",
+    options: ["satiro", "Jer13", "Karrrobi", "Zaniac18"],
     correct: 2,
   },
   {
-    q: "Sleeper's worst manager of Week 8 left how many points on its bench?",
-    options: ["14.30", "24.36", "32.68", "41.00"],
+    q: "Raymond49 set 99% of a perfect lineup and still lost. Who beat it?",
+    options: ["00sef", "Whodatjuan", "mattware1199", "Caullyn"],
+    correct: 0,
+  },
+  {
+    q: "Sleeper's worst manager of Week 9 scored 88.00. Who was it?",
+    options: ["Jer13", "satiro", "Karrrobi", "Zaniac18"],
+    correct: 0,
+  },
+  {
+    q: "Which QB scored 36.36 on mattware1199's bench?",
+    options: ["J. Burrow", "C.J. Stroud", "B. Purdy", "D. Maye"],
+    correct: 1,
+  },
+  {
+    q: "Who did Zaniac18 receive in the Nov. 10 trade with hogsett7?",
+    options: ["Bryce Young", "Wan'Dale Robinson", "Kirk Cousins", "Malik Willis"],
     correct: 2,
   },
   {
-    q: "Who spent the biggest bid of the Week 8 waiver run, $11?",
-    options: ["Whodatjuan", "Caullyn", "Jer13", "satiro"],
-    correct: 3,
-  },
-  {
-    q: "Which two teams are 7-1 after Week 8?",
-    options: ["Raymond49 and Whodatjuan", "Raymond49 and 00sef", "Whodatjuan and NathanR918", "00sef and hogsett7"],
-    correct: 0,
+    q: "How many teams are 5-4 after Week 9?",
+    options: ["Two", "Three", "Four", "Five"],
+    correct: 2,
   },
 ];
 
